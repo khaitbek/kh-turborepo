@@ -1,4 +1,5 @@
 import { BASE_URL } from "@/constants/api";
+import { REGIONS } from "@/constants/regions";
 import { Prayer } from "@/types";
 import axios from "axios";
 
@@ -6,11 +7,10 @@ export type FilterBy = "day" | "week" | "month";
 
 export async function getPrayerTimes(
   type: FilterBy = "day",
-  region: string = "Toshkent"
+  region: (typeof REGIONS)[number]
 ): Promise<Prayer[]> {
   const REQUEST_URL =
     type === "month" ? "https://islomapi.uz/api/monthly" : BASE_URL;
-  const date = new Date();
   const params: {
     region: string;
     month?: number;

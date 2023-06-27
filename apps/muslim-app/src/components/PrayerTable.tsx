@@ -9,7 +9,7 @@ import axios from "axios";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "ui";
 
 export function PrayerTable() {
-  const { data } = useQuery<Prayer[]>({ queryKey: [PRAYER_QUERY_KEY], queryFn: async () => await getPrayerTimes() });
+  const { data } = useQuery<Prayer[]>({ queryKey: [PRAYER_QUERY_KEY], queryFn: async () => await getPrayerTimes("day", "Toshkent") });
   console.log(data);
   return (
     <>
