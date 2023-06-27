@@ -1,4 +1,4 @@
-import { WEEKDAYS } from "./index";
+import { WEEKDAYS } from "@/constants/weekdays";
 
 export interface Prayer {
   region: string;

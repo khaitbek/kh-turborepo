@@ -1,7 +1,8 @@
 import 'ui/globals.css';
 import "./globals.css";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
+import { Header } from "../components";
+import { Footer } from "../components";
+import { HydrateQueryClientProvider } from "@/providers";
 
 export const metadata = {
   title: 'Create Next App',
@@ -18,7 +19,9 @@ export default function RootLayout({
       <body className="dark">
         <Header />
         <main className="site-main">
-          {children}
+          <HydrateQueryClientProvider>
+            {children}
+          </HydrateQueryClientProvider>
         </main>
         <Footer />
       </body>

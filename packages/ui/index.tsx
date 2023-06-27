@@ -4,3 +4,5 @@ export * from "./heading";
 export * from "./navigation";
 export * from "./paragraph";
 export * from "./card";
+export * from "./select";
+export * from "./table";

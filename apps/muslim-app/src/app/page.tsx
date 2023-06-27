@@ -1,7 +1,8 @@
-import { Hero } from "@/components/Hero";
-import { Services } from "@/components/Services";
+import { Hero } from "@/components";
+import { Services } from "@/components";
 
-export default function Home() {
+export default async function Home() {
+  
   return (
     <>
       <Hero />
