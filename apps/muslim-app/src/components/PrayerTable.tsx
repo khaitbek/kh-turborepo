@@ -44,7 +44,7 @@ export function PrayerTable() {
           {data?.map(info => (
             <TableRow key={info.date}>
               <TableCell>
-                {info.date.split(",")[0]}
+                {info.date.split(",")[0].split("T")[0]}
               </TableCell>
               <TableCell>
                 {info.times.tong_saharlik}
