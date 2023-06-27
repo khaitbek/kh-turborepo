@@ -1,0 +1,39 @@
+import Link from "next/link";
+import { services } from "@/data";
+import {
+  NavigationListItem,
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "ui/navigation";
+
+export function Header() {
+  return (
+    <header className="px-4 py-6">
+      <div className="container">
+        <div className="flex justify-between items-center gap-12">
+          <Link className="dark:text-white" href="/">
+            <img className="w-[105px] h-[55px]" src="/logo/logo.svg" width="105" height="35" alt="Muslim App - musulmonlar uchun namoz vaqtini kuzatish, Qur'on o'qish, kundalik tasbehlarni sanash va azon eshitishga mo'ljallangan platforma." />
+          </Link>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Xizmatlar</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid px-4 py-4 w-[200px] left-0">
+                    {services.map(service => (
+                      <NavigationListItem key={service.title} href={service.href} title={service.title}>
+                      </NavigationListItem>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+      </div>
+    </header>
+  )
+}
