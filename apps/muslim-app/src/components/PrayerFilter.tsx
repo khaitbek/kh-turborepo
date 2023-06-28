@@ -23,17 +23,17 @@ export function PrayerFilter() {
   }, [filterBy, region]);
 
   return (
-    <div className="flex gap-6 items-center">
+    <div className="grid gap-y-4 gap-x-6 items-center md:grid-cols-2">
       <Select onValueChange={async (value) => {
         setFilterBy(value as FilterBy);
       }}>
         <SelectTrigger>
-          <SelectValue placeholder={`${region} uchun ${filterBy === "day" ? "kunlik" : filterBy === "month" ? "oylik" : "haftalik"} namoz vaqtlari`} />
+          <SelectValue placeholder="Kun/Hafta/Oy" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>
-              Kun, hafta, oy, yilni tanlang
+              Kun, hafta, oyni tanlang
             </SelectLabel>
             <SelectItem value="day">
               Kunlik

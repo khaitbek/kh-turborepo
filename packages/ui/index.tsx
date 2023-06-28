@@ -6,3 +6,4 @@ export * from "./paragraph";
 export * from "./card";
 export * from "./select";
 export * from "./table";
+export * from "./skeleton";

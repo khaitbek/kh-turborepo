@@ -6,11 +6,80 @@ import { Prayer } from "@/types";
 import { getPrayerTimes } from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "ui";
+import { Paragraph, Skeleton, Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "ui";
 
 export function PrayerTable() {
-  const { data } = useQuery<Prayer[]>({ queryKey: [PRAYER_QUERY_KEY], queryFn: async () => await getPrayerTimes("day", "Toshkent") });
-  console.log(data);
+  const { data, isLoading } = useQuery<Prayer[]>({ queryKey: [PRAYER_QUERY_KEY], queryFn: async () => await getPrayerTimes("day", "Toshkent") });
+  if (isLoading) return (
+    <>
+      <Table className="my-12">
+        <TableHeader>
+          <TableRow>
+            <TableHead>
+              Sana
+            </TableHead>
+            <TableHead>
+              Bomdod
+            </TableHead>
+            <TableHead>
+              Quyosh
+            </TableHead>
+            <TableHead>
+              Peshin
+            </TableHead>
+            <TableHead>
+              Asr
+            </TableHead>
+            <TableHead>
+              Shom
+            </TableHead>
+            <TableHead>
+              Xufton
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell className="animate-pulse">
+              <Skeleton>
+                <Paragraph className="py-6"></Paragraph>
+              </Skeleton>
+            </TableCell>
+            <TableCell className="animate-pulse">
+              <Skeleton>
+                <Paragraph className="py-6"></Paragraph>
+              </Skeleton>
+            </TableCell>
+            <TableCell className="animate-pulse">
+              <Skeleton>
+                <Paragraph className="py-6"></Paragraph>
+              </Skeleton>
+            </TableCell>
+            <TableCell className="animate-pulse">
+              <Skeleton>
+                <Paragraph className="py-6"></Paragraph>
+              </Skeleton>
+            </TableCell>
+            <TableCell className="animate-pulse">
+              <Skeleton>
+                <Paragraph className="py-6"></Paragraph>
+              </Skeleton>
+            </TableCell>
+            <TableCell className="animate-pulse">
+              <Skeleton>
+                <Paragraph className="py-6"></Paragraph>
+              </Skeleton>
+            </TableCell>
+            <TableCell className="animate-pulse">
+              <Skeleton>
+                <Paragraph className="py-6"></Paragraph>
+              </Skeleton>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </>
+  )
   return (
     <>
       <Table className="my-12">
@@ -37,7 +106,6 @@ export function PrayerTable() {
             <TableHead>
               Xufton
             </TableHead>
-
           </TableRow>
         </TableHeader>
         <TableBody>
