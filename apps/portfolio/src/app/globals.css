@@ -16,7 +16,7 @@
 
 body {
   color: var(--foreground);
-  background: hsl(0, 0%, 0%);
+  background: hsl(0, 0%, 0%) !important;
 }
 
 @layer base {
