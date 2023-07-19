@@ -1,9 +1,8 @@
 "use client";
 
-import { ReactNode } from "react";
 import { ReactQueryProvider } from "./ReactQueryProvider";
 
-const Providers = ({ children }: { children: ReactNode }) => {
+const Providers = ({ children }: { children: any }) => {
   return (
     <ReactQueryProvider>
       {children}
