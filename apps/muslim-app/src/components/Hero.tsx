@@ -17,7 +17,7 @@ const defaultButtonActions: ButtonAction[] = [
 
 export function Hero({ buttons = defaultButtonActions, pageTitle = APP_NAME, pageDescription = APP_DESCRIPTION }: Partial<HeroProps>) {
   return (
-    <section className="hero py-[32px] md:py-[64px] lg:py-[96px] xl:py-[135px] 2xl:py-[150px]">
+    <section className="hero py-[32px] md:py-[64px] lg:py-[96px] xl:py-[135px] 2xl:py-[150px] ">
       <div className="container mx-auto">
         <div className="grid">
           <div className="grid place-content-center place-items-center max-w-[736px] text-center mx-auto">

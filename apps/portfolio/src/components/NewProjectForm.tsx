@@ -42,7 +42,7 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
             <FormItem>
               <FormLabel>Project name</FormLabel>
               <FormControl>
-                {/* @ts-expect-error */}
+                {/* @ts-ignore */}
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>
@@ -60,7 +60,7 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                {/* @ts-expect-error */}
+                {/* @ts-ignore */}
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>
@@ -77,7 +77,7 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
             <FormItem>
               <FormLabel>Link</FormLabel>
               <FormControl>
-                {/* @ts-expect-error */}
+                {/* @ts-ignore */}
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>
@@ -94,7 +94,7 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
             <FormItem>
               <FormLabel>Technologies</FormLabel>
               <FormControl>
-                {/* @ts-expect-error */}
+                {/* @ts-ignore */}
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>
@@ -111,7 +111,7 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
             <FormItem>
               <FormLabel>Source code</FormLabel>
               <FormControl>
-                {/* @ts-expect-error */}
+                {/* @ts-ignore */}
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>

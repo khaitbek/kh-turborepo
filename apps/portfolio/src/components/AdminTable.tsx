@@ -40,7 +40,7 @@ export function AdminTable<TData, TValue>({
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
-                    {/* @ts-expect-error */}
+                    {/* @ts-ignore */}
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -62,7 +62,7 @@ export function AdminTable<TData, TValue>({
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
-                    {/* @ts-expect-error */}
+                    {/* @ts-ignore */}
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

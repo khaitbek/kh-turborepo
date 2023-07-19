@@ -1,13 +1,13 @@
-import Link from "next/link";
 import { services } from "@/data";
+import Link from "next/link";
 import {
-  NavigationListItem,
+  NavigationMenuLink,
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "ui/navigation";
+} from "ui/components/ui/navigation-menu";
 
 export function Header() {
   return (
@@ -24,8 +24,8 @@ export function Header() {
                 <NavigationMenuContent>
                   <ul className="grid px-4 py-4 w-[200px] left-0">
                     {services.map(service => (
-                      <NavigationListItem key={service.title} href={service.href} title={service.title}>
-                      </NavigationListItem>
+                      <NavigationMenuLink key={service.title} href={service.href} title={service.title}>
+                      </NavigationMenuLink>
                     ))}
                   </ul>
                 </NavigationMenuContent>
