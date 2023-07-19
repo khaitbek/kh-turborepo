@@ -11,7 +11,7 @@ interface Post {
 }
 
 export const Projects = () => {
-  const { data: posts, isLoading } = useQuery<Post[]>({ queryKey: ['posts'], queryFn: getPosts });
+  const { data: posts, isLoading } = useQuery<Post[]>({ queryKey: ["posts"], queryFn: getPosts });
   if (isLoading) return (
     <Skeleton>
       <TypographyH3>

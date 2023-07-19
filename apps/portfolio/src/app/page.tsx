@@ -7,7 +7,7 @@ import { MainLayout } from "./layouts";
 
 export default async function Home() {
   const queryClient = getQueryClient();
-  await queryClient.prefetchQuery(['posts'], getPosts);
+  await queryClient.prefetchQuery(["posts"], getPosts);
   const dehydratedState = dehydrate(queryClient);
   return (
     <MainLayout>
