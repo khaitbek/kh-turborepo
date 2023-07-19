@@ -1,15 +1,23 @@
-import { Button, PageTitle, Paragraph } from "ui";
+import { About, Hero, Projects } from "@/components";
+import { getPosts } from "@/lib/api";
+import getQueryClient from "@/lib/getQueryClient";
+import { dehydrate, Hydrate } from "@tanstack/react-query";
 
-export default function Home() {
+import { MainLayout } from "./layouts";
+
+export default async function Home() {
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(['posts'], getPosts);
+  const dehydratedState = dehydrate(queryClient);
   return (
-    <main>
-      <PageTitle>Yusupov Hayitbek. Fullstack Developer</PageTitle>
-      <Paragraph>
-        Man, it was so difficult to get started with Drizzle
-      </Paragraph>
-      <Button variant="destructive" type="submit">
-        Some button
-      </Button>
-    </main>
+    <MainLayout>
+      <main>
+        <Hydrate state={dehydratedState}>
+          <Hero title="Hayitbek Yusupov" subtitle="Fullstack Developer" body="Hi there! I'm Hayitbek. I'm an aspiring fullstack developer who has just started his journey in web development. I really love doing different kinds of projects and I try to constantly learn the new technologies that are coming up every single day" />
+          <About />
+          <Projects />
+        </Hydrate>
+      </main>
+    </MainLayout>
   )
 }

@@ -1,36 +1,50 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "18304e59-67fa-4400-b924-12c107a81b83",
+  "id": "2a358a9d-7571-450e-80ba-92b98b69ab7e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "post": {
-      "name": "post",
+    "projects": {
+      "name": "projects",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "bigint",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
         },
-        "title": {
-          "name": "title",
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "link": {
+          "name": "link",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sourceCode": {
+          "name": "sourceCode",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "longtext",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "technologies": {
+          "name": "technologies",
           "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "likes": {
-          "name": "likes",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "userId": {
-          "name": "userId",
-          "type": "int",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -39,37 +53,26 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "user": {
-      "name": "user",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
+      "uniqueConstraints": {
+        "projects_name_unique": {
+          "name": "projects_name_unique",
+          "columns": [
+            "name"
+          ]
         },
-        "full_name": {
-          "name": "full_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+        "projects_link_unique": {
+          "name": "projects_link_unique",
+          "columns": [
+            "link"
+          ]
         },
-        "phone": {
-          "name": "phone",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+        "projects_sourceCode_unique": {
+          "name": "projects_sourceCode_unique",
+          "columns": [
+            "sourceCode"
+          ]
         }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      }
     }
   },
   "schemas": {},
