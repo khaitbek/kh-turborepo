@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { NavLink } from "./NavLink"
+import { NavLink } from "../ui/NavLink"
 
 export const Sidebar = () => {
   return (

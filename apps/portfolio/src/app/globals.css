@@ -96,3 +96,9 @@ body {
   /* background-image: linear-gradient(to right, #0250c5 20%, #d43f8d 80%); */
   background-image: linear-gradient(90deg, #7928ca, #ff0080);
 }
+
+.limit-text-3 {
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

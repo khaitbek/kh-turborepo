@@ -6,6 +6,8 @@ import {
   getCoreRowModel,
   useReactTable
 } from "@tanstack/react-table";
+import Link from "next/link";
+import { buttonVariants } from "ui";
 
 import {
   Table,
@@ -40,7 +42,6 @@ export function AdminTable<TData, TValue>({
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
-                    {/* @ts-ignore */}
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -62,7 +63,6 @@ export function AdminTable<TData, TValue>({
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
-                    {/* @ts-ignore */}
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -77,6 +77,9 @@ export function AdminTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      <Link className={buttonVariants({ variant: "default", className: "m-6" })} href="/admin/projects/new">
+        Add new
+      </Link>
     </div>
   )
 }

@@ -1,13 +1,13 @@
 "use client";
- 
-import { cn } from "@/lib/utils"
+
+import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
- 
+
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
- 
+  extends React.InputHTMLAttributes<HTMLInputElement> { }
+
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type = "text", ...props }, ref) => {
     return (
       <input
         type={type}
@@ -22,5 +22,5 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 )
 Input.displayName = "Input"
- 
-export { Input }
+
+export { Input };

@@ -27,10 +27,10 @@ export const Header = () => {
       <div className="container mx-auto">
         <div className="flex gap-8 justify-center">
           <Link href="https://github.com/khaitbek" target="_blank">
-            <Image className="max-h-[60px]" alt="Hayitbek Yusupov's Github" src="/github.svg" width={100} height={25} aria-hidden="true" />
+            <Image className="w-auto h-auto max-h-[60px]" alt="Hayitbek Yusupov's Github" src="/github.svg" width={100} height={25} aria-hidden="true" />
           </Link>
           <Link href="https://www.linkedin.com/in/hayitbek-yusupov-a640a7226/" target="_blank">
-            <Image className="max-h-[60px]" alt="Hayitbek Yusupov's Linkedin" src="/linkedin.svg" width={100} height={25} aria-hidden="true" />
+            <Image className="w-auto h-auto max-h-[60px]" alt="Hayitbek Yusupov's Linkedin" src="/linkedin.svg" width={100} height={25} aria-hidden="true" />
           </Link>
         </div>
       </div>

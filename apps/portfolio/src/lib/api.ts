@@ -1,7 +1,8 @@
-import axios from "axios";
+import { Project, db } from "@/server";
+import { sql } from "drizzle-orm";
 
 export async function getPosts() {
-  return await (
-    await axios.get("https://jsonplaceholder.typicode.com/posts")
-  ).data;
+  const allProjects = (await db.execute(sql`select * from projects`))
+    .rows as Project[];
+  return allProjects;
 }

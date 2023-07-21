@@ -1,9 +1,11 @@
-import { About, Hero, Projects } from "@/components";
 import { getPosts } from "@/lib/api";
 import getQueryClient from "@/lib/getQueryClient";
 import { dehydrate, Hydrate } from "@tanstack/react-query";
 
 import { MainLayout } from "./layouts";
+import { Hero } from "@/components/ui/Hero";
+import { About } from "@/components/ui/About";
+import { Projects } from "@/components/ui/Projects";
 
 export default async function Home() {
   const queryClient = getQueryClient();

@@ -2,32 +2,31 @@
 
 import { insertProjectSchema, Project } from "@/server";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { FC, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "ui";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./Form";
-import { Input } from "./Input";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/Form";
+import { Input } from "../ui/Input";
 
 interface NewProjectFormProps {
   addFunction: Function
 }
 
 export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
+  const queryClient = useQueryClient();
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<Project>({
     mode: "all",
     resolver: zodResolver(insertProjectSchema)
   });
+  const { register } = form;
+  console.log(insertProjectSchema);
   async function onSubmit(values: Project) {
     try {
-      addFunction(values);
-      formRef.current?.reset();
+      addFunction({ ...values });
       form.reset();
-      form.setValue("name", "");
-      form.setValue("description", "");
-      form.setValue("link", "");
-      form.setValue("sourceCode", "");
-      form.setValue("technologies", null);
+      await queryClient.invalidateQueries(["projects"]);
     } catch (error) {
       console.log(error);
     }
@@ -40,14 +39,10 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Project name</FormLabel>
+              <FormLabel className="font-bold">Project name</FormLabel>
               <FormControl>
-                {/* @ts-ignore */}
-                <Input placeholder="shadcn" {...field} />
+                <Input {...register("name")} />
               </FormControl>
-              <FormDescription>
-                Name of your project
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -58,14 +53,11 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel className="font-bold">Description</FormLabel>
               <FormControl>
-                {/* @ts-ignore */}
-                <Input placeholder="shadcn" {...field} />
+                <Input {...register("description")} />
               </FormControl>
-              <FormDescription>
-                Description of your project
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
@@ -75,14 +67,11 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
           name="link"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Link</FormLabel>
+              <FormLabel className="font-bold">Link</FormLabel>
               <FormControl>
-                {/* @ts-ignore */}
-                <Input placeholder="shadcn" {...field} />
+                <Input {...register("link")} />
               </FormControl>
-              <FormDescription>
-                Link to your project
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
@@ -92,14 +81,11 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
           name="technologies"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Technologies</FormLabel>
+              <FormLabel className="font-bold">Technologies</FormLabel>
               <FormControl>
-                {/* @ts-ignore */}
-                <Input placeholder="shadcn" {...field} />
+                <Input {...register("technologies")} />
               </FormControl>
-              <FormDescription>
-                List of technologies used in your project
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
@@ -109,14 +95,11 @@ export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
           name="sourceCode"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Source code</FormLabel>
+              <FormLabel className="font-bold">Source code</FormLabel>
               <FormControl>
-                {/* @ts-ignore */}
-                <Input placeholder="shadcn" {...field} />
+                <Input {...register("sourceCode")} />
               </FormControl>
-              <FormDescription>
-                This is your project's source code.
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
