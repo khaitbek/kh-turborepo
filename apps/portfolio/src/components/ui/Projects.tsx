@@ -38,7 +38,7 @@ export const Projects = () => {
               </Paragraph>
               <ul className="flex flex-wrap gap-6">
                 {/* @ts-ignore */}
-                {project.technologies.split(" ").map(technology => (
+                {project.technologies.split(",").map(technology => (
                   <li key={technology}>
                     <Button variant="destructive" size="sm" >
                       {technology}
