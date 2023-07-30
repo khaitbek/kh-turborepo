@@ -79,7 +79,7 @@ export function AdminTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <Link className={buttonVariants({ variant: "default", className: "m-6" })} href="/admin/projects/new">
+      <Link className={buttonVariants({ variant: "secondary", className: "m-6" })} href="/admin/projects/new">
         Add new
       </Link>
     </div>

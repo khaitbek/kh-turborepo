@@ -1,38 +1,34 @@
 "use client";
-
-import { insertProjectSchema, Project } from "@/server";
+import { Project, insertProjectSchema } from "@/server";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FC, useRef } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/Form";
 import { Input } from "../ui/Input";
 
-interface NewProjectFormProps {
-  addFunction: Function
+interface Props {
+  addFunction?: Function
 }
 
-export const NewProjectForm: FC<NewProjectFormProps> = ({ addFunction }) => {
+export const NewArticleForm: FC<Props> = ({ }) => {
   const queryClient = useQueryClient();
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<Project>({
     mode: "all",
     resolver: zodResolver(insertProjectSchema)
   });
-  const { register } = form;
-  async function onSubmit(values: Project) {
-    try {
-      addFunction({ ...values });
-      form.reset();
-      await queryClient.invalidateQueries(["projects"]);
-    } catch (error) {
-      console.log(error);
+  const { mutate, isLoading, isError } = useMutation({
+    mutationKey: ["articles", "new"],
+    mutationFn: async function (values: Project) {
+      console.log(values);
     }
-  }
+  });
+  const { register } = form;
   return (
     <Form {...form} handleSubmit={form.handleSubmit} control={form.control}>
-      <form ref={formRef} autoComplete="on" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form ref={formRef} autoComplete="on" onSubmit={form.handleSubmit(mutate as SubmitHandler<Project>)} className="space-y-8">
         <FormField
           control={form.control}
           name="name"

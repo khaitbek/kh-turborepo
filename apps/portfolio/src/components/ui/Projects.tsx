@@ -15,43 +15,47 @@ export const Projects = () => {
       </TypographyH3>
     </Skeleton>
   )
-  console.log(projects);
   return (
     <Section className="py-[100px]">
-      <GradientHeading as="h2" className="mb-12 text-white text-center block">
-        Projects
-        <span className="text-white inline-block ml-4">
-          ⚒️
-        </span>
-      </GradientHeading>
+      <div className="flex items-center justify-center">
+        <GradientHeading as="h2" variant="barca" className="mb-12  text-[36px] md:text-[48px] lg:text-[60px] tracking-widest uppercase ">
+          Coding projects
+        </GradientHeading>
+      </div>
       <ul className="grid grid-cols-[repeat(auto-fit,min(350px,100%))] justify-center gap-x-6 gap-y-8">
         {projects?.map(project => (
-          <Card key={project.id as any}>
-            <CardHeader>
-              <TypographyH3>
-                {project.name}
-              </TypographyH3>
-            </CardHeader>
-            <CardContent>
-              <Paragraph className="max-w-full mb-6 break-all limit-text-3">
-                {project.description}
-              </Paragraph>
-              <ul className="flex flex-wrap gap-6">
-                {/* @ts-ignore */}
-                {project.technologies.split(",").map(technology => (
-                  <li key={technology}>
-                    <Button variant="destructive" size="sm" >
-                      {technology}
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-            <CardFooter className="flex flex-col gap-4 md:flex-row">
-              <Link className={buttonVariants({ variant: "default" })} href={project.link!} target="_blank">
-                Visit
+          <Card className="flex flex-col justify-between" key={project.id as any}>
+            <div>
+              <CardHeader>
+                <TypographyH3>
+                  {project.name}
+                </TypographyH3>
+              </CardHeader>
+              <CardContent>
+                <Paragraph className="max-w-full mb-6 break-all limit-text-3">
+                  {project.description}
+                </Paragraph>
+                <Link className={buttonVariants({ variant: "link" })} href={`project/${project.id}`}>
+                  Read more
+                </Link>
+                <ul className="flex flex-wrap gap-x-4 gap-y-4 mt-4 border-t py-4 tracking-wider">
+
+                  {project.technologies?.split(",").map(technology => (
+                    <li key={technology}>
+                      <Button className="bg-barca" variant="destructive" size="sm" >
+                        {technology}
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+
+            </div>
+            <CardFooter className="grid gap-4 pt-4 border-t md:flex md:flex-row">
+              <Link className={buttonVariants({ variant: "secondary" })} href={project.link!} target="_blank">
+                See the demo
               </Link>
-              <Link className={buttonVariants({ variant: "secondary" })} href={project.sourceCode!} target="_blank">
+              <Link className={buttonVariants({})} href={project.sourceCode!} target="_blank">
                 Source code
               </Link>
             </CardFooter>

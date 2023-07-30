@@ -8,10 +8,11 @@ const gradientHeadingVariants = cva("inline-block font-bold text-transparent  bg
     variant: {
       default: "from-pink-500 to-indigo-600",
       indigo: "from-blue-600 via-green-500 to-indigo-400",
-      fire: " from-orange-400 to-yellow-400",
+      fire: " from-red-500 to-yellow-400",
       sunset: " from-red-500 to-amber-500",
-      dangerose: " from-rose-400 to-red-500",
-      bluebird: " from-cyan-500 to-blue-500"
+      dangerose: " from-red-700 to-blue-500",
+      bluebird: " from-cyan-300 to-blue-500",
+      barca: "from-[#cd122d] to-[#154284]"
     }
   },
   defaultVariants: {

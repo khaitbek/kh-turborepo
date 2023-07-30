@@ -8,15 +8,15 @@ export const About = () => {
   return (
 
     <Section>
-      <div className="flex gap-12 justify-between items-center">
+      <div className="flex flex-col gap-12 justify-between items-center lg:flex-row">
         <div className="max-w-[650px]">
-          <GradientHeading className="mb-6" variant="bluebird" as="h2">
-            I'm Hayitbek Yusupov
+          <GradientHeading className="mb-6 uppercase tracking-widest" variant="barca" as="h2">
+            About me
           </GradientHeading>
           <Paragraph className="text-2xl mb-6">
-            I started my coding journey in 2021. It might seem that I'm a little newcomer here and you are absolutely right. But let me tell you, don't judge a book by its cover! I am not just a random coder. Here are the technologies of my choice
+            Hi there! My name is Hayitbek and I'm from Uzbekistan! I am a fullstack Javascript developer. I started my coding journey in 2021. It might seem that I'm a little newcomer here and you are absolutely right. But let me tell you, don't judge a book by its cover! I am not just a random coder.
           </Paragraph>
-          <Link className={buttonVariants({ variant: "default", size: "lg", className: "bg-sky-600 hover:bg-sky-800" })} href="#work">
+          <Link className={buttonVariants({ variant: "default", size: "lg", className: "bg-barca" })} href="#work">
             See my work
           </Link>
         </div>

@@ -9,9 +9,7 @@ const Page = () => {
       const newProject = await db.insert(projects).values({
         ...formValues
       });
-      console.log(newProject);
     } catch (error) {
-      console.log(error);
     }
   }
   return (

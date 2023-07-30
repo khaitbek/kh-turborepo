@@ -11,6 +11,12 @@ export const Sidebar = () => {
             Projects
           </NavLink>
         </li>
+        <li className="w-full">
+          <NavLink className="w-full block flex gap-3 pl-3 pr-3 py-4 bg-projects bg-no-repeat bg-[5px] rounded-md hover:bg-zinc-900" href="/admin/blog">
+            <Image className="bg-clip-text bg-gradient-to-r" alt="projects" src="/projects.svg" width={24} height={24} />
+            Blog
+          </NavLink>
+        </li>
       </ul>
     </div>
   )
