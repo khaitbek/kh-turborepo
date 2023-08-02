@@ -1,3 +1,4 @@
+import { Back } from "@/components/ui/Back"
 import { GradientHeading } from "@/components/ui/GradientHeading"
 import { Section } from "@/components/ui/Section"
 import { db } from "@/server"
@@ -16,19 +17,24 @@ const BlogPostPage = async ({ params: { id } }: Props) => {
   const blogPost = (await db.execute(sql`select * from ${articles} where id=${id}`)).rows[0] as Article;
   const markdown = "# Heading 1. # Hello world";
   return (
-    <Section>
-      <GradientHeading className="mb-6" as="h2">
-        {blogPost.name}
-      </GradientHeading>
-      <div className="markdown-body font-inter py-4 px-6 rounded-md">
-        <ReactMarkdown components={{
-          h1: "div",
-          strong: ({ node, ...props }) => <strong style={{ fontWeight: "800" }} {...props} />
-        }}>
-          {blogPost.body as string}
-        </ReactMarkdown>
+    <>
+      <div className="container mx-auto pt-12">
+        <Back />
       </div>
-    </Section>
+      <Section>
+        <GradientHeading className="mb-6" as="h2">
+          {blogPost.name}
+        </GradientHeading>
+        <div className="markdown-body font-inter py-4 px-6 rounded-md">
+          <ReactMarkdown components={{
+            h1: "div",
+            strong: ({ node, ...props }) => <strong style={{ fontWeight: "800" }} {...props} />
+          }}>
+            {blogPost.body as string}
+          </ReactMarkdown>
+        </div>
+      </Section>
+    </>
   )
 }
 

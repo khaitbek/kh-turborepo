@@ -21,9 +21,9 @@ export const Navbar = () => {
           </Link>
         </li>
         <li>
-          {/* <Link className={buttonVariants({ variant: "link", size: "sm", className: "text-white" })} href="/blog">
+          <Link className={buttonVariants({ variant: "link", size: "sm", className: "text-white" })} href="/blog">
             Blog
-          </Link> */}
+          </Link>
         </li>
       </ul>
     </nav>
