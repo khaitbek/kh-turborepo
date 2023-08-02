@@ -11,7 +11,7 @@ export const Projects = () => {
   if (isLoading) return (
     <Section>
       <ul className="grid grid-cols-[repeat(auto-fit,min(350px,100%))] justify-center gap-x-6 gap-y-8">
-        {Array(10).fill('').map(item => (
+        {Array(10).fill("").map(item => (
           <Skeleton className="bg-transparent" key={crypto.randomUUID()}>
             <Card className="bg-stone-950 border border-stone-950" >
               <div>
