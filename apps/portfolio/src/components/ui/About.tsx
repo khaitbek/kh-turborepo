@@ -16,7 +16,7 @@ export const About = () => {
           <Paragraph className="text-2xl mb-6">
             Hi there! My name is Hayitbek and I'm from Uzbekistan! I am a fullstack Javascript developer. I started my coding journey in 2021. It might seem that I'm a little newcomer here and you are absolutely right. But let me tell you, don't judge a book by its cover! I am not just a random coder.
           </Paragraph>
-          <Link className={buttonVariants({ variant: "default", size: "lg", className: "bg-barca" })} href="#work">
+          <Link className={buttonVariants({ variant: "default", size: "lg", className: "bg-barca" })} href="/projects">
             See my work
           </Link>
         </div>

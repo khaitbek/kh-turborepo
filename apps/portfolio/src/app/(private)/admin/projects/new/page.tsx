@@ -1,6 +1,7 @@
 import { NewProjectForm } from "@/components/routing/NewProjectForm";
 import { GradientHeading } from "@/components/ui/GradientHeading";
-import { db, Project, projects } from "@/server";
+import { db } from "@/server";
+import { Project, projects } from "@/server/schema/project";
 
 const Page = () => {
   async function addProject(formValues: Project) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Project } from "@/server";
+import { Project } from "@/server/schema/project";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<Project>[] = [

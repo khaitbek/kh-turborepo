@@ -23,7 +23,7 @@ export const Hero: FC<HeroProps> = ({ title, subtitle, body }) => {
             {body}
           </Paragraph>
           <div className="flex gap-4 items-center">
-            <Link id="#contact" className={buttonVariants({ variant: "destructive", size: "lg", className: "bg-barca" })} href="#contact" target="_blank">
+            <Link id="#contact" className={buttonVariants({ variant: "destructive", size: "lg", className: "bg-barca" })} href="mailto:khaitbekdev@gmail.com" target="_blank">
               Contact me
             </Link>
             <Link className={buttonVariants({ variant: "secondary", size: "lg" })} href="https://docs.google.com/document/d/1EOuzjfVAI4l6Wdcr1uSK4Pgir5-fLe5lxMekA_9vb-o/edit" target="_blank">

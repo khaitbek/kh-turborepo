@@ -1,11 +1,12 @@
-"use client";
-
+import { ClerkProvider } from "@clerk/nextjs";
 import { ReactQueryProvider } from "./ReactQueryProvider";
 
 const Providers = ({ children }: { children: any }) => {
   return (
     <ReactQueryProvider>
-      {children}
+      <ClerkProvider>
+        {children}
+      </ClerkProvider>
     </ReactQueryProvider>
   )
 }

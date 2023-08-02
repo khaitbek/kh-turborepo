@@ -20,12 +20,14 @@ import {
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  data: TData[],
+  tableFor: string;
 }
 
 export function AdminTable<TData, TValue>({
   columns,
   data,
+  tableFor
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -48,7 +50,7 @@ export function AdminTable<TData, TValue>({
                       : flexRender(
                         header.column.columnDef.header,
                         header.getContext()
-                    )}
+                      )}
                   </TableHead>
                 )
               })}
@@ -79,7 +81,7 @@ export function AdminTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <Link className={buttonVariants({ variant: "secondary", className: "m-6" })} href="/admin/projects/new">
+      <Link className={buttonVariants({ variant: "secondary", className: "m-6" })} href={`/admin/${tableFor}/new`}>
         Add new
       </Link>
     </div>

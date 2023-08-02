@@ -1,5 +1,5 @@
 "use client";
-import { Project, insertProjectSchema } from "@/server";
+import { Article, insertArticleSchema } from "@/server/schema/article";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FC, useRef } from "react";
@@ -12,29 +12,35 @@ interface Props {
   addFunction?: Function
 }
 
-export const NewArticleForm: FC<Props> = ({ }) => {
+export const NewArticleForm: FC<Props> = ({ addFunction }) => {
   const queryClient = useQueryClient();
   const formRef = useRef<HTMLFormElement>(null);
-  const form = useForm<Project>({
+  const form = useForm<Article>({
     mode: "all",
-    resolver: zodResolver(insertProjectSchema)
+    resolver: zodResolver(insertArticleSchema)
   });
   const { mutate, isLoading, isError } = useMutation({
     mutationKey: ["articles", "new"],
-    mutationFn: async function (values: Project) {
-      console.log(values);
+    mutationFn: async function (values: Article) {
+      addFunction?.(values);
+    },
+    onSuccess(data, variables, context) {
+      console.log(data, variables);
+    },
+    onError(error, variables, context) {
+      console.log(error);
     }
   });
   const { register } = form;
   return (
     <Form {...form} handleSubmit={form.handleSubmit} control={form.control}>
-      <form ref={formRef} autoComplete="on" onSubmit={form.handleSubmit(mutate as SubmitHandler<Project>)} className="space-y-8">
+      <form ref={formRef} autoComplete="on" onSubmit={form.handleSubmit(mutate as SubmitHandler<Article>)} className="space-y-8">
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-bold">Project name</FormLabel>
+              <FormLabel className="font-bold">Article name</FormLabel>
               <FormControl>
                 <Input {...register("name")} />
               </FormControl>
@@ -42,63 +48,21 @@ export const NewArticleForm: FC<Props> = ({ }) => {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
-          name="description"
+          name="body"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-bold">Description</FormLabel>
+              <FormLabel className="font-bold">body</FormLabel>
               <FormControl>
-                <Input {...register("description")} />
+                <Input {...register("body")} />
               </FormControl>
 
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="link"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-bold">Link</FormLabel>
-              <FormControl>
-                <Input {...register("link")} />
-              </FormControl>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="technologies"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-bold">Technologies</FormLabel>
-              <FormControl>
-                <Input {...register("technologies")} />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="sourceCode"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-bold">Source code</FormLabel>
-              <FormControl>
-                <Input {...register("sourceCode")} />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <Button variant="secondary" disabled={form.formState.isLoading || !form.formState.isValid} type="submit">Submit</Button>
       </form>
     </Form>

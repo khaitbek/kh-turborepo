@@ -15,6 +15,20 @@
       "when": 1689956317656,
       "tag": "0001_supreme_gateway",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1690958294064,
+      "tag": "0002_windy_sway",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1690958397679,
+      "tag": "0003_amused_misty_knight",
+      "breakpoints": true
     }
   ]
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { insertProjectSchema, Project } from "@/server";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { FC, useRef } from "react";
@@ -8,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/Form";
 import { Input } from "../ui/Input";
+import { Project, insertProjectSchema } from "@/server/schema/project";
 
 interface NewProjectFormProps {
   addFunction: Function

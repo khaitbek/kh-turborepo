@@ -1,6 +1,10 @@
+import { AdminTable } from "@/components/routing/AdminTable";
 import { GradientHeading } from "@/components/ui/GradientHeading";
-import { db, Project } from "@/server";
+import { db } from "@/server";
+import { articles } from "@/server/schema/article";
+import { Project } from "@/server/schema/project";
 import { sql } from "drizzle-orm";
+import { columns } from "./columns";
 
 
 async function getData() {
@@ -8,13 +12,13 @@ async function getData() {
   return projectsData;
 }
 const Page = async () => {
-  const projects = await getData();
+  const blogPosts = await db.select().from(articles);
   return (
     <>
       <GradientHeading className="mb-6">
         Blog Table
       </GradientHeading>
-      {/* <AdminTable columns={columns} data={projects} /> */}
+      <AdminTable tableFor="blog" columns={columns} data={blogPosts} />
     </>
   )
 }

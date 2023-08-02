@@ -1,8 +1,9 @@
-import { Project, db } from "@/server";
-import { sql } from "drizzle-orm";
+"use server";
+
+import { db } from "@/server";
+import { projects } from "@/server/schema/project";
 
 export async function getPosts() {
-  const allProjects = (await db.execute(sql`select * from projects`))
-    .rows as Project[];
+  const allProjects = await db.select().from(projects);
   return allProjects;
 }
