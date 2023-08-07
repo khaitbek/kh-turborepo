@@ -1,12 +1,11 @@
-import { Hero } from "@/components";
-import { Services } from "@/components";
-import Login from "@/components/Login";
+import { Hero, Services } from "@/components";
 
 export default async function Home() {
 
   return (
     <>
-      <Login />
+      <Hero buttons={[]} />
+      <Services />
     </>
   )
 }
