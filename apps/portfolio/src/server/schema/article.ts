@@ -22,6 +22,9 @@ export const insertArticleSchema = createInsertSchema(articles, {
   body: (schema) =>
     schema.body.min(50, "Tuzukroq description yoz, fucking lazy!"),
   name: (schema) => schema.name.min(10, "Tuzukroq nom yoz!"),
+  id: (schema) => schema.name.optional(),
+  updatedAt: (schema) => schema.name.optional(),
+  createdAt: (schema) => schema.name.optional(),
 });
 export const articleRelations = relations(articles, ({ many }) => ({
   articlesToTechnologies: many(articlesToTechnologies),

@@ -1,3 +1,15 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "dev.realsoft.academy",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "dev.realsoft.academy",
+      "database": "project",
+      "password": "p9DxPyhAYv82rnc3bdza",
+      "username": "project"
+    }
+  ]
 }

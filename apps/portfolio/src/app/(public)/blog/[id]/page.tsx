@@ -1,11 +1,10 @@
 import { Back } from "@/components/ui/Back"
 import { GradientHeading } from "@/components/ui/GradientHeading"
+import { MarkdownRenderer } from "@/components/ui/MarkdownRenderer"
 import { Section } from "@/components/ui/Section"
 import { db } from "@/server"
 import { Article, articles } from "@/server/schema/article"
 import { sql } from "drizzle-orm"
-import "github-markdown-css/github-markdown.css"
-import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 
 interface Props {
   params: {
@@ -26,12 +25,10 @@ const BlogPostPage = async ({ params: { id } }: Props) => {
           {blogPost.name}
         </GradientHeading>
         <div className="markdown-body font-inter py-4 px-6 rounded-md">
-          <ReactMarkdown components={{
-            h1: "div",
-            strong: ({ node, ...props }) => <strong style={{ fontWeight: "800" }} {...props} />
-          }}>
+          
+          <MarkdownRenderer>
             {blogPost.body as string}
-          </ReactMarkdown>
+          </MarkdownRenderer>
         </div>
       </Section>
     </>
