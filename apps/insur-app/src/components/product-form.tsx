@@ -14,8 +14,9 @@ import { addProduct } from "@/lib/api"
 import { objToFormData } from "@/lib/utils"
 import { ProductEditModel, ProductModel } from "@/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
+import { useRouter } from "next/navigation"
 import { useRef } from "react"
 import { useForm } from "react-hook-form"
 import { Button } from "ui"
@@ -29,14 +30,16 @@ export async function editProduct(data: any, id: string) {
     return await axios.put(`http://localhost:5000/api/v1/product/${id}`, {
         ...data,
         id,
-    });
+    })
 }
 
 export function NewProductForm() {
+    const formRef = useRef<HTMLFormElement>(null)
     const imgOneRef = useRef<HTMLInputElement>(null)
     const imgTwoRef = useRef<HTMLInputElement>(null)
     const imgThreeRef = useRef<HTMLInputElement>(null)
     const { toast } = useToast()
+    const router = useRouter()
     // 1. Define your form.
     const form = useForm<z.infer<typeof ProductModel>>({
         resolver: zodResolver(ProductModel),
@@ -44,10 +47,12 @@ export function NewProductForm() {
             onSale: true,
         },
     })
+    const queryClient = useQueryClient()
     const { mutate, isLoading } = useMutation({
         mutationKey: ["product", "new"],
         mutationFn: async function (data: FormData) {
             const newProduct = await addProduct(data)
+            console.log(newProduct)
         },
         onError: (err) => {
             toast({
@@ -61,7 +66,15 @@ export function NewProductForm() {
                 description:
                     "Yangi mahsulot muvaffaqqiyatli ravishda qo'shildi!",
             })
-            form.reset()
+            form.setValue("descriptionRu", "")
+            form.setValue("descriptionUz", "")
+            form.setValue("imgOne", "")
+            form.setValue("imgTwo", "")
+            form.setValue("imgThree", "")
+            form.setValue("nameUz", "")
+            form.setValue("nameRu", "")
+            form.setValue("onSale", false)
+            queryClient.invalidateQueries({ queryKey: ["products"] })
         },
     })
 
@@ -83,6 +96,7 @@ export function NewProductForm() {
         <Container>
             <Form {...form}>
                 <form
+                    ref={formRef}
                     autoComplete="off"
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-8"
@@ -267,6 +281,7 @@ export function NewProductForm() {
     )
 }
 export function EditProductForm({ data }: { data: Product | undefined }) {
+    const queryClient = useQueryClient()
     const { toast } = useToast()
     const { mutate, isLoading } = useMutation({
         mutationKey: ["products", "edit", data?.id],
@@ -276,6 +291,7 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
             toast({
                 title: "Muvaffaqqiyatli amalga oshirildi!",
             })
+            queryClient.invalidateQueries({ queryKey: ["products"] })
         },
         onError(error, variables, context) {
             toast({
@@ -381,7 +397,8 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulot haqida rus tilida ma'lumot yozing
+                                        Mahsulot haqida rus tilida ma'lumot
+                                        yozing
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>

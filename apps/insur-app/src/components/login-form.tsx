@@ -13,13 +13,14 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { loginHandler, setToken } from "@/lib/api"
+import { loginHandler } from "@/lib/api"
 import { AdminModel } from "@/schema"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { Button } from "ui"
 import { useToast } from "./ui/use-toast"
+import { setToken } from "@/lib/actions"
 
 export function LoginForm() {
     const router = useRouter()

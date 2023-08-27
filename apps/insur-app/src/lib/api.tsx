@@ -1,8 +1,9 @@
-"use server"
+
+
+import axios from "axios"
+
 import { Product } from "@/data/products"
 import { AdminModel } from "@/schema"
-import axios from "axios"
-import { cookies } from "next/headers"
 import { z } from "zod"
 export const axiosClient = axios.create({
     baseURL: "http://localhost:5000/api/v1",
@@ -28,11 +29,7 @@ export async function addProduct(data: FormData) {
 }
 
 export async function editProduct(data: Product) {
-    return await axiosClient.put(`/product/${data.id}`, data, {
-        headers: {
-            Authorization: `Bearer ${cookies().get("insurToken")?.value}`,
-        },
-    })
+    return await axiosClient.put(`/product/${data.id}`, data)
 }
 
 export async function deleteProduct(id: string) {
@@ -45,8 +42,4 @@ export async function loginHandler(values: z.infer<typeof AdminModel>) {
     return await (
         await axiosClient.post("/auth/login", values)
     ).data
-}
-
-export async function setToken(token: string) {
-    cookies().set("insurToken", token)
 }
