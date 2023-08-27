@@ -12,10 +12,10 @@ export default async function Home() {
                     href="/"
                     className={cn(buttonVariants({ variant: "destructive" }))}
                 >
-                    Back
+                    Ortga
                 </Link>
                 <PageTitle className="mb-12 text-center">
-                    Add a new product
+                    Mahsulot qo'shish
                 </PageTitle>
                 <NewProductForm />
             </Container>

@@ -1,50 +1,20 @@
 import { Container } from "@/components/ui/container"
 import { DataTable } from "@/components/ui/data-table"
-import { Payment } from "@/data/products"
+import { getProducts } from "@/lib/api"
+import getQueryClient from "@/lib/get-query-client"
+import { Hydrate, dehydrate } from "@tanstack/react-query"
 import Link from "next/link"
 import { PageTitle, Paragraph, buttonVariants } from "ui"
 import { cn } from "ui/lib/utils"
 import { columns } from "./columns"
 
-async function getData(): Promise<Payment[]> {
-    // Fetch data from your API here.
-    return [
-        {
-            id: "728ed52f",
-            name: "Casual",
-            description:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseof Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            status: true,
-            imgOne: "https://isnur.netlify.app/images/card-1.png",
-            imgTwo: "https://isnur.netlify.app/images/card-1.png",
-            imgThree: "https://isnur.netlify.app/images/card-1.png",
-        },
-        {
-            id: "728ed52f",
-            name: "Casual",
-            description:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseof Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            status: true,
-            imgOne: "https://isnur.netlify.app/images/card-3.png",
-            imgTwo: "https://isnur.netlify.app/images/card-3.png",
-            imgThree: "https://isnur.netlify.app/images/card-3.png",
-        },
-        {
-            id: "728ed52f",
-            name: "Casual",
-            description:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseof Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            status: true,
-            imgOne: "https://isnur.netlify.app/images/card-2.png",
-            imgTwo: "https://isnur.netlify.app/images/card-2.png",
-            imgThree: "https://isnur.netlify.app/images/card-2.png",
-        },
-        // ...
-    ]
-}
-
 export default async function Home() {
-    const data = await getData()
+    const queryClient = getQueryClient()
+    await queryClient.prefetchQuery({
+        queryKey: ["products"],
+        queryFn: async () => await getProducts(),
+    })
+    const dehydratedState = dehydrate(queryClient)
     return (
         <section className="py-12" id="home">
             <Container>
@@ -56,7 +26,9 @@ export default async function Home() {
                         products, you can delete or update the product you need
                     </Paragraph>
                 </div>
-                <DataTable columns={columns} data={data} />
+                <Hydrate state={dehydratedState}>
+                    <DataTable columns={columns} />
+                </Hydrate>
                 <Link
                     href="/new-product"
                     className={cn(

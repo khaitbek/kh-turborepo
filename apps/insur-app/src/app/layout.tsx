@@ -3,6 +3,9 @@ import { Inter } from "next/font/google"
 import "ui/globals.css"
 import { cn } from "ui/lib/utils"
 import "./globals.css"
+import Providers from "@/providers/providers"
+import { Toaster } from "@/components/ui/toaster"
+import axios from "axios"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -15,11 +18,14 @@ export default function RootLayout({
     children,
 }: {
     children: React.ReactNode
-}) {
+    }) {
     return (
         <html lang="en">
             <body className={cn(inter.className, "dark")}>
-                <main>{children}</main>
+                <Providers>
+                    <main>{children}</main>
+                    <Toaster />
+                </Providers>
             </body>
         </html>
     )

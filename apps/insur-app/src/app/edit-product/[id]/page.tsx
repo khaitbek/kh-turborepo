@@ -1,6 +1,6 @@
 import { EditProductForm } from "@/components/product-form"
 import { Container } from "@/components/ui/container"
-import { payments } from "@/data/products"
+import { getProductById } from "@/lib/api"
 import Link from "next/link"
 import { PageTitle, buttonVariants } from "ui"
 import { cn } from "ui/lib/utils"
@@ -12,7 +12,7 @@ interface PageProps {
 }
 
 async function getData(id: string) {
-    return payments.find((payment) => payment.id === id)
+    return getProductById(id)
 }
 export default async function Home({ params: { id } }: PageProps) {
     const data = await getData(id)
@@ -24,14 +24,14 @@ export default async function Home({ params: { id } }: PageProps) {
                     className={cn(
                         buttonVariants({
                             variant: "destructive",
-                            className: "mb-6",
+                            className: "mb-6 ml-6",
                         })
                     )}
                 >
-                    Back
+                    Ortga
                 </Link>
-                <PageTitle className="mb-12">
-                    Edit product with the id of {id}
+                <PageTitle className="mb-12 ml-6">
+                    Mahsulotni o'zgartirish
                 </PageTitle>
                 <EditProductForm data={data} />
             </Container>

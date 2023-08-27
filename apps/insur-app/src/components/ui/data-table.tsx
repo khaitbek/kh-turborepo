@@ -15,22 +15,26 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { getProducts } from "@/lib/api"
+import { useQuery } from "@tanstack/react-query"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
 }
 
 export function DataTable<TData, TValue>({
     columns,
-    data,
 }: DataTableProps<TData, TValue>) {
+    const { data } = useQuery({
+        queryKey: ["products"],
+        queryFn: async () => await getProducts(),
+    })
     const table = useReactTable({
-        data,
+        data: (data! as TData[]) || [],
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
-
+    console.log(data)
     return (
         <div className="rounded-md border">
             <Table>
