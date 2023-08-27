@@ -1,14 +1,22 @@
 import { Container } from "@/components/ui/container"
 import { DataTable } from "@/components/ui/data-table"
 import { getProducts } from "@/lib/api"
+import { getDictionary } from "@/lib/dictionary"
 import getQueryClient from "@/lib/get-query-client"
 import { Hydrate, dehydrate } from "@tanstack/react-query"
 import Link from "next/link"
-import { PageTitle, Paragraph, buttonVariants } from "ui"
+import { PageTitle, buttonVariants } from "ui"
 import { cn } from "ui/lib/utils"
+import { Locale } from "../../../i18n.config"
 import { columns } from "./columns"
 
-export default async function Home() {
+export default async function Home({
+    params: { lang },
+}: {
+    params: { lang: Locale }
+}) {
+    const langInfo = await getDictionary(lang)
+    const { navigation, form, table } = langInfo;
     const queryClient = getQueryClient()
     await queryClient.prefetchQuery({
         queryKey: ["products"],
@@ -19,15 +27,13 @@ export default async function Home() {
         <section className="py-12" id="home">
             <Container>
                 <div className="grid gap-6 max-w-[650px] mb-12 mx-auto text-center">
-                    <PageTitle>Isnur Admin Dashboard</PageTitle>
-                    <Paragraph>
-                        This website is an admin dashboard for the Isnur App.
-                        Here you can manage all the products, you can add new
-                        products, you can delete or update the product you need
-                    </Paragraph>
+                    <PageTitle>{navigation.home}</PageTitle>
                 </div>
                 <Hydrate state={dehydratedState}>
-                    <DataTable columns={columns} />
+                    <DataTable
+                        lang={langInfo}
+                        columns={columns}
+                    />
                 </Hydrate>
                 <Link
                     href="/new-product"
@@ -38,7 +44,7 @@ export default async function Home() {
                         })
                     )}
                 >
-                    Add new
+                    {navigation.new}
                 </Link>
             </Container>
         </section>

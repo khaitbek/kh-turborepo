@@ -7,7 +7,13 @@ import Providers from "@/providers/providers"
 import { Toaster } from "@/components/ui/toaster"
 import axios from "axios"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin","cyrillic"] })
+
+import { Locale, i18n } from "../../../i18n.config";
+
+// export async function generateStaticParams() {
+//     return i18n.locales.map((locale) => ({ lang: locale }))
+// }
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -16,11 +22,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
+    params,
 }: {
     children: React.ReactNode
-    }) {
+    params: { lang: Locale }
+}) {
     return (
-        <html lang="en">
+        <html lang={params.lang}>
             <body className={cn(inter.className, "dark")}>
                 <Providers>
                     <main>{children}</main>

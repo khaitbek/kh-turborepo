@@ -1,0 +1,73 @@
+{
+  "navigation": {
+    "home": "Isnur Admin Sahifasi",
+    "edit": "Mahsulotni tahrirlash",
+    "new": "Mahsulot qo'shish",
+    "login": "Tizimga kirish",
+    "back": "Ortga"
+  },
+  "page": {
+    "home": {},
+    "about": {}
+  },
+  "table": {
+    "columns": {
+      "name": "Nomi",
+      "category": "Kategoriya",
+      "status": "Holati",
+      "actions": "Amallar"
+    }
+  },
+  "form": {
+    "delete": "O'chirish",
+    "edit": "Tahrirlash",
+    "error": {
+      "default": "Xatolik yuz berdi!",
+      "login": "Parol yoki username xato!"
+    },
+    "product": {
+      "nameUz": {
+        "label": "Напишите имя на узбекском языке.",
+        "desc": "Напишите узбекское название продукта латинскими буквами."
+      },
+      "nameRu": {
+        "label": "Напишите имя на русском языке.",
+        "desc": "Напишите русское название продукта латинскими буквами."
+      },
+      "imgOne": {
+        "label": "1-rasm",
+        "desc": "Mahsulotning 1-rasmini kiriting"
+      },
+      "imgTwo": {
+        "label": "2-rasm",
+        "desc": "Mahsulotning 2-rasmini kiriting"
+      },
+      "imgThree": {
+        "label": "3-rasm",
+        "desc": "Mahsulotning 3-rasmini kiriting"
+      },
+      "descriptionUz": {
+        "label": "Ma'lumot",
+        "desc": "Mahsulot haqida ma'lumotni o'zbek tilida yozing!"
+      },
+      "descriptionRu": {
+        "label": "Ma'lumot",
+        "desc": "Mahsulot haqida ma'lumotni rus tilida yozing!"
+      },
+      "category": {
+        "label": "Kategoriya",
+        "desc": "Mahsulot kategoriyasini tanlang"
+      },
+      "onSale": {
+        "label": "Aktiv holati",
+        "desc": "Mahsulotning sotuvga chiqishi kerak yoki kerak emasligini tanlang"
+      },
+      "categories": {
+        "male": "Erkaklar",
+        "female": "Ayollar",
+        "kids": "Bolalar",
+        "all": "Umumiy"
+      }
+    }
+  }
+}

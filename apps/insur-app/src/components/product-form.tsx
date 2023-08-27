@@ -19,7 +19,14 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useRef } from "react"
 import { useForm } from "react-hook-form"
-import { Button } from "ui"
+import {
+    Button,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "ui"
 import * as z from "zod"
 import { Checkbox } from "./ui/checkbox"
 import { Container } from "./ui/container"
@@ -73,6 +80,7 @@ export function NewProductForm() {
             form.setValue("imgThree", "")
             form.setValue("nameUz", "")
             form.setValue("nameRu", "")
+            form.setValue("category", "")
             form.setValue("onSale", false)
             queryClient.invalidateQueries({ queryKey: ["products"] })
         },
@@ -201,6 +209,39 @@ export function NewProductForm() {
                             </FormItem>
                         )}
                     />
+                    <FormField
+                        control={form.control}
+                        name="category"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Kategoriya</FormLabel>
+                                <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                >
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Kategoriyani tanlang" />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        <SelectItem defaultChecked value="">
+                                            Umumiy
+                                        </SelectItem>
+                                        <SelectItem value="MALE">
+                                            Erkaklar
+                                        </SelectItem>
+                                        <SelectItem value="FEMALE">
+                                            Ayollar
+                                        </SelectItem>
+                                        <SelectItem value="KIDS">
+                                            Bolalar
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </FormItem>
+                        )}
+                    />
                     <div className="flex gap-6 " style={{ flexWrap: "wrap" }}>
                         <FormField
                             control={form.control}
@@ -300,15 +341,15 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
         },
     })
     // 1. Define your form.
-    const form = useForm<z.infer<typeof ProductEditModel>>({
-        resolver: zodResolver(ProductEditModel),
+    const form = useForm<z.infer<typeof ProductModel>>({
+        resolver: zodResolver(ProductModel),
         defaultValues: {
             ...data,
         },
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof ProductEditModel>) {
+    function onSubmit(values: z.infer<typeof ProductModel>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         mutate(values)
@@ -419,6 +460,39 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                                 <div className="space-y-1 leading-none">
                                     <FormLabel>Aktiv holati</FormLabel>
                                 </div>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="category"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Kategoriya</FormLabel>
+                                <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                >
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Kategoriyani tanlang" />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        <SelectItem defaultChecked value="">
+                                            Umumiy
+                                        </SelectItem>
+                                        <SelectItem value="MALE">
+                                            Erkaklar
+                                        </SelectItem>
+                                        <SelectItem value="FEMALE">
+                                            Ayollar
+                                        </SelectItem>
+                                        <SelectItem value="KIDS">
+                                            Bolalar
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </FormItem>
                         )}
                     />

@@ -16,15 +16,19 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { getProducts } from "@/lib/api"
+import { getDictionary } from "@/lib/dictionary"
 import { useQuery } from "@tanstack/react-query"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
+    lang: Awaited<ReturnType<typeof getDictionary>>
 }
 
 export function DataTable<TData, TValue>({
     columns,
+    lang,
 }: DataTableProps<TData, TValue>) {
+    const { form, navigation, table: tableLang } = lang
     const { data } = useQuery({
         queryKey: ["products"],
         queryFn: async () => await getProducts(),
@@ -34,7 +38,6 @@ export function DataTable<TData, TValue>({
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
-    console.log(data)
     return (
         <div className="rounded-md border">
             <Table>
@@ -47,8 +50,13 @@ export function DataTable<TData, TValue>({
                                         {header.isPlaceholder
                                             ? null
                                             : flexRender(
-                                                  header.column.columnDef
-                                                      .header,
+                                                  // @ts-ignore
+                                                  tableLang.columns[
+                                                      header.column.columnDef
+                                                          .header as any
+                                                  ] ||
+                                                      header.column.columnDef
+                                                          .header,
                                                   header.getContext()
                                               )}
                                     </TableHead>

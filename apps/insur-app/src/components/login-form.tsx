@@ -13,17 +13,23 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { setToken } from "@/lib/actions"
 import { loginHandler } from "@/lib/api"
+import { getDictionary } from "@/lib/dictionary"
 import { AdminModel } from "@/schema"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { Button } from "ui"
 import { useToast } from "./ui/use-toast"
-import { setToken } from "@/lib/actions"
 
-export function LoginForm() {
+export function LoginForm({
+    langInfo,
+}: {
+    langInfo: Awaited<ReturnType<typeof getDictionary>>
+}) {
     const router = useRouter()
+    const { navigation, form: formLang } = langInfo
     const { toast } = useToast()
     const { mutate, isLoading } = useMutation({
         mutationKey: ["login"],
@@ -34,10 +40,9 @@ export function LoginForm() {
                 title: "Xatolik yuz berdi!",
             })
         },
-        onSuccess(data, variables, context) {
-            setToken(data.token)
-            router.push("/")
-            router.replace("/");
+        async onSuccess(data, variables, context) {
+            await setToken(data.token)
+            router.replace("/")
         },
     })
     // 1. Define your form.
@@ -89,7 +94,7 @@ export function LoginForm() {
                     )}
                 />
                 <Button disabled={isLoading} type="submit">
-                    Submit
+                    {navigation.login}
                 </Button>
             </form>
         </Form>
