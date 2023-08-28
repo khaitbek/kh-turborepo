@@ -10,7 +10,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Product } from "@/data/products"
-import { addProduct } from "@/lib/api"
+import { addProduct, axiosClient } from "@/lib/api"
 import { objToFormData } from "@/lib/utils"
 import { ProductEditModel, ProductModel } from "@/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -34,7 +34,7 @@ import { Input } from "./ui/input"
 import { useToast } from "./ui/use-toast"
 
 export async function editProduct(data: any, id: string) {
-    return await axios.put(`http://localhost:5000/api/v1/product/${id}`, {
+    return await axiosClient.put(`/product/${id}`, {
         ...data,
         id,
     })

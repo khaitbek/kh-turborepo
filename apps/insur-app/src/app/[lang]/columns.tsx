@@ -3,7 +3,7 @@
 import { useToast } from "@/components/ui/use-toast"
 import { Product } from "@/data/products"
 import { deleteProduct } from "@/lib/api"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
 import { Button, Paragraph, buttonVariants } from "ui"
@@ -45,6 +45,7 @@ export const columns: ColumnDef<Product>[] = [
     {
         header: "actions",
         cell(props) {
+            const queryClient = useQueryClient()
             const { mutate, isLoading } = useMutation({
                 mutationKey: ["delete", "product", props.row.original.id],
                 mutationFn: async () =>
@@ -53,6 +54,7 @@ export const columns: ColumnDef<Product>[] = [
                     toast({
                         title: "Muvaffaqqiyatli amalga oshirildi!",
                     })
+                    queryClient.invalidateQueries({ queryKey: ["products"] })
                 },
             })
             const { toast } = useToast()

@@ -1,12 +1,10 @@
-
-
 import axios from "axios"
 
 import { Product } from "@/data/products"
 import { AdminModel } from "@/schema"
 import { z } from "zod"
 export const axiosClient = axios.create({
-    baseURL: "http://localhost:5000/api/v1",
+    baseURL: `https://isnur-backend-production.up.railway.app/api/v1`,
 })
 export async function getProducts(skip = 0, take = 10): Promise<Product[]> {
     const products = await axiosClient.get("/product", {
