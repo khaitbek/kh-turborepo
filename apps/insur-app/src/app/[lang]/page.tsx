@@ -9,8 +9,8 @@ import { getCarousels, getProducts } from "@/lib/api"
 import { DataTable } from "@/components/ui/data-table"
 import Link from "next/link"
 import { cn } from "ui/lib/utils"
-import { columns as productColumns } from "./products/columns"
-import { columns as carouselColumns } from "./carousel/columns"
+import { productColumns } from "@/data/columns";
+import { carouselColumns } from "@/data/columns";
 
 export default async function Home({
     params: { lang },
