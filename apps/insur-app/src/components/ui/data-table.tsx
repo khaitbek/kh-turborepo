@@ -15,24 +15,26 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { getProducts } from "@/lib/api"
+import { getCarousels, getProducts } from "@/lib/api"
 import { getDictionary } from "@/lib/dictionary"
-import { useQuery } from "@tanstack/react-query"
+import { QueryFunction, useQuery } from "@tanstack/react-query"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    lang: Awaited<ReturnType<typeof getDictionary>>
+    lang: Awaited<ReturnType<typeof getDictionary>>,
+    queryKey: string;
 }
 
 export function DataTable<TData, TValue>({
     columns,
     lang,
+    queryKey
 }: DataTableProps<TData, TValue>) {
     const { form, navigation, table: tableLang } = lang
     const { data } = useQuery({
-        queryKey: ["products"],
-        queryFn: async () => await getProducts(),
-    })
+        queryKey: [queryKey],
+        queryFn: async () => await queryKey === "products" ? getProducts() : getCarousels(),
+    });
     const table = useReactTable({
         data: (data! as TData[]) || [],
         columns,

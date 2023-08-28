@@ -1,15 +1,14 @@
+import { Toaster } from "@/components/ui/toaster"
+import Providers from "@/providers/providers"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import "./globals.css"
 import "ui/globals.css"
 import { cn } from "ui/lib/utils"
-import "./globals.css"
-import Providers from "@/providers/providers"
-import { Toaster } from "@/components/ui/toaster"
-import axios from "axios"
 
-const inter = Inter({ subsets: ["latin","cyrillic"] })
+const inter = Inter({ subsets: ["latin", "cyrillic"] })
 
-import { Locale, i18n } from "../../../i18n.config";
+import { Locale } from "../../../i18n.config"
 
 // export async function generateStaticParams() {
 //     return i18n.locales.map((locale) => ({ lang: locale }))

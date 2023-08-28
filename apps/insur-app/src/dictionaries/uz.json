@@ -1,8 +1,8 @@
 {
   "navigation": {
     "home": "Isnur Admin Sahifasi",
-    "edit": "Mahsulotni tahrirlash",
-    "new": "Mahsulot qo'shish",
+    "edit": "Tahrirlash",
+    "new": "Yangi qo'shish",
     "login": "Tizimga kirish",
     "back": "Ortga"
   },
@@ -27,8 +27,8 @@
     },
     "product": {
       "nameUz": {
-        "label": "Напишите имя на узбекском языке.",
-        "desc": "Напишите узбекское название продукта латинскими буквами."
+        "label": "Mahsulot nomini yozing",
+        "desc": "Mahsulot nomini o'zbek tilida yozing"
       },
       "nameRu": {
         "label": "Напишите имя на русском языке.",
