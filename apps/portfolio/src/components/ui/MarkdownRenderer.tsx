@@ -20,15 +20,32 @@ export async function MarkdownRenderer({
       remarkPlugins={[]}
       components={{
         code({ node, inline, className, children, ...props }) {
+          const ifAnyCode =
+              children.join("").includes("<") ||
+              children.join("").includes("js") ||
+            children.join("").includes("ts")
+          console.log(children.join(""));
+          if (children.join("").length > 20) {
+              return (
+                  <SyntaxHighlighter
+                      {...props}
+                      style={stackoverflowDark}
+                      customStyle={{ padding: ".5em 1em" }}
+                      language="typescript"
+                  >
+                      {String(children)}
+                  </SyntaxHighlighter>
+              )
+          }
           return (
-            <SyntaxHighlighter
-              {...props}
-              style={stackoverflowDark}
-              customStyle={{ padding: ".5em 1em" }}
-              language="typescript"
-            >
-              {String(children)}
-            </SyntaxHighlighter>
+              <SyntaxHighlighter
+                  {...props}
+                  style={stackoverflowDark}
+                  customStyle={{ padding: ".5em 1em", display: "inline" }}
+                  language="typescript"
+              >
+                  {String(children)}
+              </SyntaxHighlighter>
           )
         }
       }}
