@@ -1,5 +1,4 @@
 import { Back } from "@/components/ui/Back"
-import { GradientHeading } from "@/components/ui/GradientHeading"
 import { MarkdownRenderer } from "@/components/ui/MarkdownRenderer"
 import { db } from "@/server"
 import { Article, articles } from "@/server/schema/article"
@@ -11,28 +10,29 @@ interface Props {
     }
 }
 
+async function getPosts(id: Article["id"]) {
+    return (await db.execute(sql`select * from ${articles} where id=${id}`))
+        .rows[0] as Article
+}
+
 const BlogPostPage = async ({ params: { id } }: Props) => {
-    const blogPost = (
-        await db.execute(sql`select * from ${articles} where id=${id}`)
-    ).rows[0] as Article
-    const markdown = "# Heading 1. # Hello world"
+    // const blogPost = (
+    //     await db.execute(sql`select * from ${articles} where id=${id}`)
+    // ).rows[0] as Article
     return (
         <>
             <div className="container mx-auto mb-6 pt-12">
                 <Back />
             </div>
             <div className="max-w-[80ch] mx-auto">
-                {/* <GradientHeading className="mb-6" as="h2">
-                    {blogPost.name}
-                </GradientHeading> */}
                 <div className="markdown-body font-inter py-4 px-6 rounded-md">
-                    <MarkdownRenderer>
+                    {/* <MarkdownRenderer>
                         {blogPost.body as string}
-                    </MarkdownRenderer>
+                    </MarkdownRenderer> */}
                 </div>
             </div>
         </>
     )
 }
 
-export default BlogPostPage;
+export default BlogPostPage
