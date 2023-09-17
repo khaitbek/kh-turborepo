@@ -2,7 +2,7 @@ import { Back } from "@/components/ui/Back"
 import { MarkdownRenderer } from "@/components/ui/MarkdownRenderer"
 import { db } from "@/server"
 import { Article, articles } from "@/server/schema/article"
-import { sql } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 
 interface Props {
     params: {
@@ -19,6 +19,7 @@ const BlogPostPage = async ({ params: { id } }: Props) => {
     // const blogPost = (
     //     await db.execute(sql`select * from ${articles} where id=${id}`)
     // ).rows[0] as Article
+    const blogPost = await db.select().from(articles).where(eq(articles.id, id));
     return (
         <>
             <div className="container mx-auto mb-6 pt-12">
@@ -26,9 +27,9 @@ const BlogPostPage = async ({ params: { id } }: Props) => {
             </div>
             <div className="max-w-[80ch] mx-auto">
                 <div className="markdown-body font-inter py-4 px-6 rounded-md">
-                    {/* <MarkdownRenderer>
-                        {blogPost.body as string}
-                    </MarkdownRenderer> */}
+                    <MarkdownRenderer>
+                        {blogPost[0].body as string}
+                    </MarkdownRenderer>
                 </div>
             </div>
         </>
