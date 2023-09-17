@@ -2,7 +2,6 @@ import { NewArticleForm } from "@/components/routing/NewArticleForm"
 import { editArticle } from "@/lib/api"
 import { db } from "@/server"
 import { Article, articles } from "@/server/schema/article"
-import { Project } from "@/server/schema/project"
 import { sql } from "drizzle-orm"
 
 interface Props {

@@ -1,0 +1,72 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "33ea03aa-234a-4bb0-83de-92d1cb21f485",
+  "prevId": "c14d9eea-6d05-43d0-bf88-7c0aef41c670",
+  "tables": {
+    "articles_to_technologies": {
+      "name": "articles_to_technologies",
+      "columns": {
+        "articleId": {
+          "name": "articleId",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "technologyId": {
+          "name": "technologyId",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "articles_to_technologies_articleId_articles_id_fk": {
+          "name": "articles_to_technologies_articleId_articles_id_fk",
+          "tableFrom": "articles_to_technologies",
+          "tableTo": "articles",
+          "columnsFrom": [
+            "articleId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "articles_to_technologies_technologyId_technologies_id_fk": {
+          "name": "articles_to_technologies_technologyId_technologies_id_fk",
+          "tableFrom": "articles_to_technologies",
+          "tableTo": "technologies",
+          "columnsFrom": [
+            "technologyId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "articles_to_technologies_articleId_technologyId": {
+          "name": "articles_to_technologies_articleId_technologyId",
+          "columns": [
+            "articleId",
+            "technologyId"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

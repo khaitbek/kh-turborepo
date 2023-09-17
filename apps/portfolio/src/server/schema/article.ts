@@ -7,7 +7,9 @@ import {
   varchar,
 } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-zod";
-import { articlesToTechnologies } from "../relations";
+import { TechnologyToSelectOptions } from "../../types"
+import { articlesToTechnologies } from "./relations"
+import { Technology } from "./technology"
 
 export const articles = mysqlTable("articles", {
   id: bigint("id", { mode: "bigint" }).autoincrement().primaryKey(),
@@ -16,7 +18,13 @@ export const articles = mysqlTable("articles", {
   createdAt: datetime("createdAt", { mode: "date" }).default(new Date()),
   updatedAt: datetime("updatedAt", { mode: "date" }),
 });
-export interface Article extends InferModel<typeof articles> {}
+export interface Article extends InferModel<typeof articles> {
+    technologies?: Technology[]
+}
+export interface ArticleWithTechnologyOptions
+    extends InferModel<typeof articles> {
+    technologies?: TechnologyToSelectOptions[]
+}
 export interface NewArticle extends InferModel<typeof articles, "insert"> {}
 export const insertArticleSchema = createInsertSchema(articles, {
   body: (schema) =>

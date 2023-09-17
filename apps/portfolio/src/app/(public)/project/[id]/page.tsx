@@ -7,11 +7,17 @@ import { sql } from "drizzle-orm";
 import Link from "next/link";
 import { Button, Card, CardContent, CardFooter, CardHeader, Paragraph, TypographyH3, buttonVariants } from "ui";
 
+
+import { Metadata } from "next"
+
+
 interface ProjectProps {
   params: {
     id: Project["id"]
   }
 }
+
+
 
 const Project = async ({ params: { id } }: ProjectProps) => {
   const project = (await db.execute(sql`select * from ${projects} where ${projects.id} = ${id}`)).rows[0] as Project;

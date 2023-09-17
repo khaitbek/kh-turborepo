@@ -1,0 +1,2 @@
+ALTER TABLE `articles` MODIFY COLUMN `createdAt` datetime DEFAULT '2023-09-17 03:35:44.444';--> statement-breakpoint
+ALTER TABLE `technologies` MODIFY COLUMN `createdAt` datetime DEFAULT '2023-09-17 03:35:44.443';

@@ -1,5 +1,6 @@
 import { PageWrapper } from "@/components/loading/PageLoader";
 import { About } from "@/components/ui/About";
+import Skills from "@/components/ui/Skills";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
