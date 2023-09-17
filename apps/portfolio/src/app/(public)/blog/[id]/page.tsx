@@ -16,9 +16,6 @@ async function getPosts(id: Article["id"]) {
 }
 
 const BlogPostPage = async ({ params: { id } }: Props) => {
-    // const blogPost = (
-    //     await db.execute(sql`select * from ${articles} where id=${id}`)
-    // ).rows[0] as Article
     const blogPost = await db.select().from(articles).where(eq(articles.id, id));
     return (
         <>

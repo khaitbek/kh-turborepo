@@ -2,7 +2,6 @@ import "github-markdown-css/github-markdown.css"
 import ReactMarkdown from "react-markdown"
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight"
 import { stackoverflowDark,dark,docco,defaultStyle,vs,codepenEmbed,github,githubGist,googlecode } from "react-syntax-highlighter/dist/esm/styles/hljs"
-import * as shiki from "shiki"
 import { cn } from "ui/lib/utils"
 
 type MarkdownRendererProps = React.ComponentProps<typeof ReactMarkdown>
@@ -11,8 +10,6 @@ export async function MarkdownRenderer({
     className,
     ...props
 }: MarkdownRendererProps) {
-    const highlighter = await shiki.getHighlighter({ theme: "poimandres" })
-    const theme = highlighter.getTheme()
     return (
         <ReactMarkdown
             remarkPlugins={[]}
