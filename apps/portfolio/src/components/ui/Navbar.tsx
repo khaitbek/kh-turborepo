@@ -6,7 +6,7 @@ export const Navbar = () => {
       <nav className="w-full">
           <ul className="flex text-[12px] gap-1 justify-center sm:gap-3 sm:text-sm md:text-lg  md:gap-4 lg:gap-6">
               <li>
-                  <Link
+                  <a
                       className={buttonVariants({
                           variant: "link",
                           size: "sm",
@@ -15,10 +15,10 @@ export const Navbar = () => {
                       href="/"
                   >
                       Home
-                  </Link>
+                  </a>
               </li>
               <li>
-                  <Link
+                  <a
                       className={buttonVariants({
                           variant: "link",
                           size: "sm",
@@ -27,10 +27,10 @@ export const Navbar = () => {
                       href="#about"
                   >
                       About
-                  </Link>
+                  </a>
               </li>
               <li>
-                  <Link
+                  <a
                       className={buttonVariants({
                           variant: "link",
                           size: "sm",
@@ -39,10 +39,10 @@ export const Navbar = () => {
                       href="#projects"
                   >
                       Projects
-                  </Link>
+                  </a>
               </li>
               <li>
-                  <Link
+                  <a
                       className={buttonVariants({
                           variant: "link",
                           size: "sm",
@@ -51,7 +51,7 @@ export const Navbar = () => {
                       href="#skills"
                   >
                       Skills
-                  </Link>
+                  </a>
               </li>
               {/* <li>
                   <Link
