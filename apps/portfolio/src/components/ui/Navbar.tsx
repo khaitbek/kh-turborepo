@@ -3,8 +3,8 @@ import { buttonVariants } from "ui"
 
 export const Navbar = () => {
   return (
-      <nav>
-          <ul className="flex text-[12px] gap-1 justify-center sm:gap-3 sm:text-sm md:text-lg md:justify-start  md:gap-4 lg:gap-6">
+      <nav className="w-full">
+          <ul className="flex text-[12px] gap-1 justify-center sm:gap-3 sm:text-sm md:text-lg  md:gap-4 lg:gap-6">
               <li>
                   <Link
                       className={buttonVariants({
@@ -24,7 +24,7 @@ export const Navbar = () => {
                           size: "sm",
                           className: "text-white",
                       })}
-                      href="/about"
+                      href="#about"
                   >
                       About
                   </Link>
@@ -36,7 +36,7 @@ export const Navbar = () => {
                           size: "sm",
                           className: "text-white",
                       })}
-                      href="/projects"
+                      href="#projects"
                   >
                       Projects
                   </Link>
@@ -48,12 +48,12 @@ export const Navbar = () => {
                           size: "sm",
                           className: "text-white",
                       })}
-                      href="/skills"
+                      href="#skills"
                   >
                       Skills
                   </Link>
               </li>
-              <li>
+              {/* <li>
                   <Link
                       className={buttonVariants({
                           variant: "link",
@@ -64,7 +64,7 @@ export const Navbar = () => {
                   >
                       Blog
                   </Link>
-              </li>
+              </li> */}
           </ul>
       </nav>
   )

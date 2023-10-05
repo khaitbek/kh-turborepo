@@ -1,1 +1,0 @@
-DROP TABLE `articles_to_technologies`;

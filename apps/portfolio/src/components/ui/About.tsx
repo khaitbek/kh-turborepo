@@ -6,7 +6,7 @@ import { Section } from "./Section"
 
 export const About = () => {
   return (
-      <Section>
+      <Section id="about">
           <div className="flex flex-col gap-12 justify-between items-center lg:flex-row">
               <div className="max-w-[650px]">
                   <GradientHeading
@@ -16,12 +16,16 @@ export const About = () => {
                       About me
                   </GradientHeading>
                   <Paragraph className="text-2xl mb-6">
-                      Hi there! My name is Hayitbek and I'm from Uzbekistan! I
-                      am a fullstack Javascript developer. I started my coding
-                      journey in 2021. It might seem that I'm a little newcomer
-                      here and you are absolutely right. But let me tell you,
-                      don't judge a book by its cover! I am not just a random
-                      coder.
+                      I'm a fullstack developer who has a lot of passion for
+                      creating nice, accessible and effortless software that
+                      makes life easier. My journey began in the years when I
+                      was at high school, when I started learning to create
+                      simple websites and fell in love with the process When I'm
+                      not coding, you can find me exploring new art exhibitions,
+                      practicing chess, or indulging in my love for football. I
+                      believe that creative inspiration can be found anywhere
+                      and I am always looking for new ways to expand my
+                      horizons.
                   </Paragraph>
                   <Link
                       className={buttonVariants({

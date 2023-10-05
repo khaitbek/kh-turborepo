@@ -1,10 +1,12 @@
+import { Footer } from "@/components/ui/Footer"
+import { Header } from "@/components/ui/Header"
 import { Toaster } from "@/components/ui/toaster"
 import Providers from "@/providers/Providers"
 import { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Suspense } from "react"
 import { PuffLoader } from "react-spinners"
-import "ui/globals.css"
+import "ui/globals.css";
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -17,7 +19,7 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en">
+        <html className="scroll-smooth" lang="en">
             <body className={inter.className + " dark"}>
                 <Suspense
                     fallback={
@@ -26,7 +28,11 @@ export default function RootLayout({
                         </div>
                     }
                 >
-                    <Providers>{children}</Providers>
+                    <Providers>
+                        <Header />
+                            <main>{children}</main>
+                        <Footer />
+                    </Providers>
                     <Toaster />
                 </Suspense>
             </body>

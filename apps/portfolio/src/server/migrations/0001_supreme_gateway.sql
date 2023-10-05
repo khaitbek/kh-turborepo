@@ -1,1 +1,0 @@
-ALTER TABLE `projects` MODIFY COLUMN `technologies` longtext;
