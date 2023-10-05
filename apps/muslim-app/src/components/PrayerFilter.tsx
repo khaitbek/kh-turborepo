@@ -1,31 +1,39 @@
 "use client";
 import { PRAYER_QUERY_KEY } from "@/constants";
+import { REGIONS } from "@/constants/regions";
 import { FilterBy, getPrayerTimes } from "@/utils/api";
 import { dehydrate, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "ui";
 
 export function PrayerFilter() {
   const queryClient = useQueryClient();
   const [filterBy, setFilterBy] = useState<FilterBy>("day");
-  const router = useRouter();
+  const [region, setRegion] = useState<typeof REGIONS[number]>("Toshkent");
+
+  async function handleFilter() {
+    const prayerTimes = await getPrayerTimes(filterBy, region);
+    queryClient.setQueryData([PRAYER_QUERY_KEY], prayerTimes);
+    dehydrate(queryClient);
+  }
+
+  useEffect(() => {
+    console.log(filterBy, region);
+    handleFilter();
+  }, [filterBy, region]);
+
   return (
-    <div className="flex gap-6 items-center">
+    <div className="grid gap-y-4 gap-x-6 items-center md:grid-cols-2">
       <Select onValueChange={async (value) => {
         setFilterBy(value as FilterBy);
-        const prayerTimes = await getPrayerTimes(value as FilterBy);
-        queryClient.setQueryData([PRAYER_QUERY_KEY], prayerTimes);
-        const dehydratedState = dehydrate(queryClient);
-        console.log(dehydratedState.queries);
       }}>
         <SelectTrigger>
-          <SelectValue placeholder={`${filterBy === "day" ? "Kunlik" : filterBy === "month" ? "Oylik" : "Haftalik"} namoz vaqtlari`} />
+          <SelectValue placeholder="Kun/Hafta/Oy" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>
-              Kun, hafta, oy, yilni tanlang
+              Kun, hafta, oyni tanlang
             </SelectLabel>
             <SelectItem value="day">
               Kunlik
@@ -39,6 +47,26 @@ export function PrayerFilter() {
           </SelectGroup>
         </SelectContent>
       </Select>
+      <Select onValueChange={async (value) => {
+        setRegion(value as typeof REGIONS[number]);
+      }}>
+        <SelectTrigger>
+          <SelectValue placeholder="Hududni tanlang" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>
+              Hududni tanlang
+            </SelectLabel>
+            {REGIONS.map(region => (
+              <SelectItem key={region} value={region}>
+                {region}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+
     </div>
   )
 }

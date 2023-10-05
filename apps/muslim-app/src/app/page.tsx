@@ -1,11 +1,10 @@
-import { Hero } from "@/components";
-import { Services } from "@/components";
+import { Hero, Services } from "@/components";
 
 export default async function Home() {
-  
+
   return (
     <>
-      <Hero />
+      <Hero buttons={[]} />
       <Services />
     </>
   )
