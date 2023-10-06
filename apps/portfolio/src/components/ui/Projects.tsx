@@ -81,7 +81,7 @@ export const Projects = () => {
                         Coding projects
                     </GradientHeading>
                 </div>
-                <ul className="grid grid-cols-[repeat(auto-fit,min(350px,100%))] justify-center gap-x-6 gap-y-8">
+                <ul className="grid grid-cols-[repeat(auto-fill,min(350px,1fr)] justify-center gap-x-6 gap-y-8">
                     {projects?.map((project) => (
                         <Card
                             className="flex flex-col justify-between"

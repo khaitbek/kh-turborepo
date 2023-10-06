@@ -15,7 +15,7 @@ export const About = () => {
                   >
                       About me
                   </GradientHeading>
-                  <Paragraph className="text-2xl mb-6">
+                  <Paragraph className="md:text-xl lg:text-2xl mb-6">
                       I'm a fullstack developer who has a lot of passion for
                       creating nice, accessible and effortless software that
                       makes life easier. My journey began in the years when I

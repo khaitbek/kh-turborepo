@@ -4,19 +4,8 @@ import { buttonVariants } from "ui"
 export const Navbar = () => {
   return (
       <nav className="w-full">
-          <ul className="flex text-[12px] gap-1 justify-center sm:gap-3 sm:text-sm md:text-lg  md:gap-4 lg:gap-6">
-              <li>
-                  <a
-                      className={buttonVariants({
-                          variant: "link",
-                          size: "sm",
-                          className: "text-white",
-                      })}
-                      href="/"
-                  >
-                      Home
-                  </a>
-              </li>
+          <ol className="flex text-[12px] gap-1 justify-center sm:gap-3 sm:text-sm md:text-lg  md:gap-4 lg:gap-6">
+              
               <li>
                   <a
                       className={buttonVariants({
@@ -65,7 +54,7 @@ export const Navbar = () => {
                       Blog
                   </Link>
               </li> */}
-          </ul>
+          </ol>
       </nav>
   )
 }
