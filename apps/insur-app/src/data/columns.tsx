@@ -11,6 +11,7 @@ import { cn } from "ui/lib/utils"
 
 import { Product } from "@/data/products"
 import { deleteProduct } from "@/lib/api"
+import { Checkbox } from "@/components/ui/checkbox"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -101,11 +102,12 @@ export const productColumns: ColumnDef<Product>[] = [
                 MALE: "Erkaklar",
                 FEMALE: "Ayollar",
                 KIDS: "Bolalar",
+                TIGHTS: "Kolgotkilar",
             }
             return (
                 <Paragraph className="text-black dark:text-white">
                     {/* @ts-ignore */}
-                    {text[props.row.original.category] || "Umumiy"}
+                    {text[props.row.original.category]}
                 </Paragraph>
             )
         },
@@ -113,6 +115,16 @@ export const productColumns: ColumnDef<Product>[] = [
     {
         accessorKey: "onSale",
         header: "status",
+        cell(props) {
+            return (
+                <div className="px-[2.5rem]">
+                    <Checkbox
+                        defaultChecked={props.row.original.onSale}
+                        disabled
+                    />
+                </div>
+            )
+        },
     },
     {
         header: "actions",

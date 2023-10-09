@@ -22,6 +22,7 @@ import * as z from "zod"
 import { Container } from "./ui/container"
 import { Input } from "./ui/input"
 import { useToast } from "./ui/use-toast"
+import { LangAsProp } from "@/types"
 
 export async function editProduct(data: any, id: string) {
     return await axiosClient.put(`/product/${id}`, {
@@ -30,7 +31,7 @@ export async function editProduct(data: any, id: string) {
     })
 }
 
-export function NewCarouselForm() {
+export function NewCarouselForm({ lang }: { lang: LangAsProp }) {
     const formRef = useRef<HTMLFormElement>(null)
     const imgRef = useRef<HTMLInputElement>(null)
     const imgTwoRef = useRef<HTMLInputElement>(null)
@@ -47,13 +48,11 @@ export function NewCarouselForm() {
         mutationKey: ["new", "carousel"],
         mutationFn: async function (data: FormData) {
             const newProduct = await addCarousel(data)
-            console.log(newProduct)
         },
         onError: (err) => {
             toast({
-                title: "Xatolik yuz berdi!",
+                title: lang.form.error.default,
             })
-            console.log(err)
         },
         onSuccess(data, variables, context) {
             toast({

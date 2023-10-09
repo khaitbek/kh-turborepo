@@ -38,8 +38,12 @@ export default async function Home({
                 </div>
                 <Tabs defaultValue="products">
                     <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="products">Mahsulotlar</TabsTrigger>
-                        <TabsTrigger value="carousel">Carousel</TabsTrigger>
+                        <TabsTrigger value="products">
+                            {langInfo.table.tabs.products}
+                        </TabsTrigger>
+                        <TabsTrigger value="carousel">
+                            {langInfo.table.tabs.carousel}
+                        </TabsTrigger>
                     </TabsList>
                     <TabsContent value="products">
                         <Hydrate state={dehydratedState}>

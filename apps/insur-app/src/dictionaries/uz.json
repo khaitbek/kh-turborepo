@@ -1,4 +1,6 @@
 {
+  "loading": "Loading...",
+  "success": "Muvaffaqqiyatli amalga oshirildi!",
   "navigation": {
     "home": "Isnur Admin Sahifasi",
     "edit": "Tahrirlash",
@@ -11,6 +13,10 @@
     "about": {}
   },
   "table": {
+    "tabs": {
+      "carousel": "Slayder",
+      "products": "Mahsulotlar"
+    },
     "columns": {
       "name": "Nomi",
       "category": "Kategoriya",
@@ -31,20 +37,20 @@
         "desc": "Mahsulot nomini o'zbek tilida yozing"
       },
       "nameRu": {
-        "label": "Напишите имя на русском языке.",
-        "desc": "Напишите русское название продукта латинскими буквами."
+        "label": "Mahsulotning ruscha nomini yozing",
+        "desc": "Mahsulotning nomini ruscha harflarda yozing"
       },
       "imgOne": {
         "label": "1-rasm",
-        "desc": "Mahsulotning 1-rasmini kiriting"
+        "desc": "Mahsulotning 1-rasmini tanlang"
       },
       "imgTwo": {
         "label": "2-rasm",
-        "desc": "Mahsulotning 2-rasmini kiriting"
+        "desc": "Mahsulotning 2-rasmini tanlang"
       },
       "imgThree": {
         "label": "3-rasm",
-        "desc": "Mahsulotning 3-rasmini kiriting"
+        "desc": "Mahsulotning 3-rasmini tanlang"
       },
       "descriptionUz": {
         "label": "Ma'lumot",
@@ -66,8 +72,13 @@
         "male": "Erkaklar",
         "female": "Ayollar",
         "kids": "Bolalar",
+        "tights": "Kalgotkilar",
         "all": "Umumiy"
       }
+    },
+    "login": {
+      "username": "Login",
+      "password": "Parol"
     }
   }
 }

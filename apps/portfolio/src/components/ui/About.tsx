@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { buttonVariants, Paragraph } from "ui"
+import { buttonVariants, PageTitle, Paragraph } from "ui"
 import { GradientHeading } from "./GradientHeading"
 import { Section } from "./Section"
 
@@ -9,12 +9,9 @@ export const About = () => {
       <Section id="about">
           <div className="flex flex-col gap-12 justify-between items-center lg:flex-row">
               <div className="max-w-[650px]">
-                  <GradientHeading
-                      className="mb-6 uppercase tracking-widest bg-gradient-to-r from-white to-gray-500"
-                      as="h2"
-                  >
+                  <PageTitle className="uppercase from-white to-gray-500 tracking-widest text-[36px] md:text-[48px] lg:text-[60px]">
                       About me
-                  </GradientHeading>
+                  </PageTitle>
                   <Paragraph className="md:text-xl lg:text-2xl mb-6">
                       I'm a fullstack developer who has a lot of passion for
                       creating nice, accessible and effortless software that
@@ -38,10 +35,10 @@ export const About = () => {
                   </Link>
               </div>
               <Image
-                  className="rounded-md"
+                  className="rounded-md flex-1 w-full lg:max-w-[500px] lg:rounded-full"
                   alt="Hayitbek Yusupov"
                   src="/me.jpg"
-                  width={450}
+                  width={500}
                   height={500}
                   sizes="(max-width:768px) 300px 400px, (max-width:968px) 400px 500px"
               />

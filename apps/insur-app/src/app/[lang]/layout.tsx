@@ -2,7 +2,6 @@ import { Toaster } from "@/components/ui/toaster"
 import Providers from "@/providers/providers"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./globals.css"
 import "ui/globals.css"
 import { cn } from "ui/lib/utils"
 

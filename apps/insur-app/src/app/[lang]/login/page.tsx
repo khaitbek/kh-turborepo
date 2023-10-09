@@ -9,10 +9,10 @@ interface PageProps {
 
 const LoginPage = async ({ params: { lang } }: PageProps) => {
     const langInfo = await getDictionary(lang)
-    const { navigation, form, table } = langInfo
+    const { navigation:{login}, form, table,page } = langInfo
     return (
         <div className="container mx-auto">
-            <PageTitle className="my-12">Tizimga kiring!</PageTitle>
+            <PageTitle className="my-12">{login}</PageTitle>
             <LoginForm langInfo={langInfo} />
         </div>
     )

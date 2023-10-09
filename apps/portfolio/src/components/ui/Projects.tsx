@@ -4,6 +4,7 @@ import {
     CardContent,
     CardFooter,
     CardHeader,
+    PageTitle,
     Paragraph,
     TypographyH3,
     buttonVariants,
@@ -45,7 +46,15 @@ export const Projects = () => {
             name: "Expert.uz",
             description:
                 "A platform that has collected a lot of tools for professional activity, online learning, finding opportunities to start your professional career and more",
-            technologies: ["Vue.js", "Javascript", "Low Code", "SQL", "TailwindCSS", "REST API", "PostgreSQL"],
+            technologies: [
+                "Vue.js",
+                "Javascript",
+                "Low Code",
+                "SQL",
+                "TailwindCSS",
+                "REST API",
+                "PostgreSQL",
+            ],
             link: "https://expert.uz",
             sourceCode: null,
             coverImg:
@@ -54,8 +63,7 @@ export const Projects = () => {
         {
             id: 2,
             name: "Melon",
-            description:
-                "A platform that has collected a lot of tools for professional activity, online learning, finding opportunities to start your professional career and more",
+            description: "A single all-in-one platform for online education",
             technologies: [
                 "React.js",
                 "Next.js",
@@ -74,12 +82,9 @@ export const Projects = () => {
         <>
             <Section id="projects" className="py-[100px]">
                 <div className="flex items-center justify-center">
-                    <GradientHeading
-                        as="h2"
-                        className="mb-12  text-[36px] md:text-[48px] lg:text-[60px] tracking-widest uppercase bg-gradient-to-r from-white to-gray-500"
-                    >
-                        Coding projects
-                    </GradientHeading>
+                    <PageTitle className="uppercase from-white to-gray-500 tracking-widest text-[36px] md:text-[48px] lg:text-[60px]">
+                        Projects
+                    </PageTitle>
                 </div>
                 <ul className="grid grid-cols-[repeat(auto-fill,min(350px,1fr)] justify-center gap-x-6 gap-y-8">
                     {projects?.map((project) => (

@@ -12,7 +12,8 @@ export const ProductModel = z.object({
     imgTwo: z.string(),
     imgThree: z.string(),
     onSale: z.boolean(),
-    category: z.string().optional()
+    category: z.string().optional(),
+    type: z.string().optional()
 })
 
 export const ProductEditModel = z.object({

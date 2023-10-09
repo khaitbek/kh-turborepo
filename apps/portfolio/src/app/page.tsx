@@ -1,4 +1,6 @@
 import { About } from "@/components/ui/About"
+import { Articles } from "@/components/ui/Articles"
+import { Experience } from "@/components/ui/Experience"
 import { Hero } from "@/components/ui/Hero"
 import { Projects } from "@/components/ui/Projects"
 import Skills from "@/components/ui/Skills"
@@ -18,6 +20,8 @@ export default async function Home() {
             <About />
             <Skills />
             <Projects />
+            <Experience />
+            <Articles />
         </>
     )
 }

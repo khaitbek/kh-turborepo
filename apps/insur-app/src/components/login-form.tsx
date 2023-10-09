@@ -22,22 +22,23 @@ import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { Button } from "ui"
 import { useToast } from "./ui/use-toast"
+import { LangAsProp } from "@/types"
 
-export function LoginForm({
-    langInfo,
-}: {
-    langInfo: Awaited<ReturnType<typeof getDictionary>>
-}) {
+export function LoginForm({ langInfo }: { langInfo: LangAsProp }) {
     const router = useRouter()
     const { navigation, form: formLang } = langInfo
     const { toast } = useToast()
     const { mutate, isLoading } = useMutation({
         mutationKey: ["login"],
-        mutationFn: async (values: z.infer<typeof AdminModel>) =>
-            await loginHandler(values),
+        mutationFn: async (values: z.infer<typeof AdminModel>) => {
+            toast({
+                title: langInfo.loading,
+            })
+            return await loginHandler(values)
+        },
         onError(error, variables, context) {
             toast({
-                title: "Xatolik yuz berdi!",
+                title: langInfo.form.error.default,
             })
         },
         async onSuccess(data, variables, context) {
@@ -66,13 +67,12 @@ export function LoginForm({
                     name="username"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Username</FormLabel>
+                            <FormLabel>
+                                {langInfo.form.login.username}
+                            </FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <Input {...field} />
                             </FormControl>
-                            <FormDescription>
-                                This is your public display name.
-                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -82,13 +82,12 @@ export function LoginForm({
                     name="password"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>
+                                {langInfo.form.login.password}
+                            </FormLabel>
                             <FormControl>
                                 <Input type="password" {...field} />
                             </FormControl>
-                            <FormDescription>
-                                This is your public display name.
-                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
