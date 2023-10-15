@@ -34,11 +34,9 @@ import { Input } from "./ui/input"
 import { useToast } from "./ui/use-toast"
 import { LangAsProp } from "@/types"
 
-export async function editProduct(data: any, id: string) {
-    return await axiosClient.put(`/product/${id}`, {
-        ...data,
-        id,
-    })
+export async function editProduct(data: FormData, id: string) {
+    data.set("id", id)
+    return await axiosClient.put(`/product/${id}`, data)
 }
 
 export function NewProductForm({ lang }: { lang: LangAsProp }) {
@@ -236,13 +234,19 @@ export function NewProductForm({ lang }: { lang: LangAsProp }) {
                                             {lang.form.product.categories.male}
                                         </SelectItem>
                                         <SelectItem value="FEMALE">
-                                            {lang.form.product.categories.female}
+                                            {
+                                                lang.form.product.categories
+                                                    .female
+                                            }
                                         </SelectItem>
                                         <SelectItem value="KIDS">
                                             {lang.form.product.categories.kids}
                                         </SelectItem>
                                         <SelectItem value="TIGHTS">
-                                            {lang.form.product.categories.tights}
+                                            {
+                                                lang.form.product.categories
+                                                    .tights
+                                            }
                                         </SelectItem>
                                     </SelectContent>
                                 </Select>
@@ -340,11 +344,15 @@ export function EditProductForm({
     data: Product | undefined
     lang: LangAsProp
 }) {
+    const formRef = useRef<HTMLFormElement>(null)
+    const imgOneRef = useRef<HTMLInputElement>(null)
+    const imgTwoRef = useRef<HTMLInputElement>(null)
+    const imgThreeRef = useRef<HTMLInputElement>(null)
     const queryClient = useQueryClient()
     const { toast } = useToast()
     const { mutate, isLoading } = useMutation({
         mutationKey: ["products", "edit", data?.id],
-        mutationFn: async (values: z.infer<typeof ProductEditModel>) =>
+        mutationFn: async (values: FormData) =>
             await editProduct(values, data!.id),
         onSuccess(data, variables, context) {
             toast({
@@ -363,6 +371,9 @@ export function EditProductForm({
         resolver: zodResolver(ProductModel),
         defaultValues: {
             ...data,
+            imgOne: "",
+            imgTwo: "",
+            imgThree: "",
         },
     })
 
@@ -370,9 +381,16 @@ export function EditProductForm({
     function onSubmit(values: z.infer<typeof ProductModel>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        mutate(values)
+        const formValues: z.infer<typeof ProductModel> = {
+            ...values,
+            imgOne: imgOneRef.current?.files![0] as unknown as string,
+            imgTwo: imgTwoRef.current?.files![0] as unknown as string,
+            imgThree: imgThreeRef.current?.files![0] as unknown as string,
+        }
+        console.log("Form values ==>>", formValues)
+        const formData = objToFormData(formValues)
+        mutate(formData)
     }
-    console.log(form.formState.errors)
     return (
         <Container>
             <Form {...form}>
@@ -525,7 +543,7 @@ export function EditProductForm({
                             </FormItem>
                         )}
                     />
-                    {/* <FormField
+                    <FormField
                         control={form.control}
                         name="imgOne"
                         render={({ field }) => (
@@ -535,8 +553,8 @@ export function EditProductForm({
                                     <Input
                                         className="upload-input"
                                         type="file"
-                                        
                                         {...field}
+                                        ref={imgOneRef}
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -545,8 +563,8 @@ export function EditProductForm({
                                 <FormMessage />
                             </FormItem>
                         )}
-                    /> */}
-                    {/* <FormField
+                    />
+                    <FormField
                         control={form.control}
                         name="imgTwo"
                         render={({ field }) => (
@@ -556,8 +574,8 @@ export function EditProductForm({
                                     <Input
                                         className="upload-input"
                                         type="file"
-                                        
                                         {...field}
+                                        ref={imgTwoRef}
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -577,8 +595,8 @@ export function EditProductForm({
                                     <Input
                                         className="upload-input"
                                         type="file"
-                                        
                                         {...field}
+                                        ref={imgThreeRef}
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -587,7 +605,7 @@ export function EditProductForm({
                                 <FormMessage />
                             </FormItem>
                         )}
-                    /> */}
+                    />
                     <Button disabled={isLoading} type="submit">
                         {lang.navigation.edit}
                     </Button>

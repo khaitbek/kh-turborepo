@@ -16,7 +16,7 @@ interface PageProps {
 }
 
 async function getData(id: string) {
-    return getCarouselBy(id)
+    return await getCarouselBy(id)
 }
 export default async function Home({ params: { id,lang } }: PageProps) {
   const data = await getData(id)
