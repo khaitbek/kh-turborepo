@@ -1,5 +1,6 @@
+import { cookies } from "next/headers"
 export const i18n = {
-    defaultLocale: "ru",
+    defaultLocale: "uz",
     locales: ["uz", "ru"],
 } as const
 

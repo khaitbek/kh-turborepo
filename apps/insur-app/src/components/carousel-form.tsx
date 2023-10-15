@@ -22,6 +22,7 @@ import * as z from "zod"
 import { Container } from "./ui/container"
 import { Input } from "./ui/input"
 import { useToast } from "./ui/use-toast"
+import { LangAsProp } from "@/types"
 
 export async function editProduct(data: any, id: string) {
     return await axiosClient.put(`/product/${id}`, {
@@ -30,7 +31,7 @@ export async function editProduct(data: any, id: string) {
     })
 }
 
-export function NewCarouselForm() {
+export function NewCarouselForm({ lang }: { lang: LangAsProp }) {
     const formRef = useRef<HTMLFormElement>(null)
     const imgRef = useRef<HTMLInputElement>(null)
     const imgTwoRef = useRef<HTMLInputElement>(null)
@@ -47,13 +48,11 @@ export function NewCarouselForm() {
         mutationKey: ["new", "carousel"],
         mutationFn: async function (data: FormData) {
             const newProduct = await addCarousel(data)
-            console.log(newProduct)
         },
         onError: (err) => {
             toast({
-                title: "Xatolik yuz berdi!",
+                title: lang.form.error.default,
             })
-            console.log(err)
         },
         onSuccess(data, variables, context) {
             toast({
@@ -215,11 +214,12 @@ export function NewCarouselForm() {
     )
 }
 export function EditCarouselForm({ data }: { data: Carousel | undefined }) {
+    const imageRef = useRef<HTMLInputElement>(null)
     const queryClient = useQueryClient()
     const { toast } = useToast()
     const { mutate, isLoading } = useMutation({
         mutationKey: ["carousel", "edit", data?.id],
-        mutationFn: async (values: z.infer<typeof CarouselModel>) =>
+        mutationFn: async (values: FormData) =>
             await editCarousel(values, data!.id),
         onSuccess(data, variables, context) {
             toast({
@@ -246,7 +246,12 @@ export function EditCarouselForm({ data }: { data: Carousel | undefined }) {
     function onSubmit(values: z.infer<typeof CarouselModel>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        mutate(values)
+        const formValues = {
+            ...values,
+            image: imageRef.current?.files?.[0] as unknown as string,
+        } satisfies typeof values
+
+        mutate(objToFormData(formValues))
     }
     console.log(form.formState.errors)
     return (
@@ -342,7 +347,7 @@ export function EditCarouselForm({ data }: { data: Carousel | undefined }) {
                     </div>
 
                     <div className="flex gap-6 " style={{ flexWrap: "wrap" }}>
-                        {/* <FormField
+                        <FormField
                             control={form.control}
                             name="image"
                             render={({ field }) => (
@@ -354,6 +359,7 @@ export function EditCarouselForm({ data }: { data: Carousel | undefined }) {
                                             type="file"
                                             placeholder="image"
                                             {...field}
+                                            ref={imageRef}
                                         />
                                     </FormControl>
                                     <FormDescription>
@@ -362,7 +368,7 @@ export function EditCarouselForm({ data }: { data: Carousel | undefined }) {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        /> */}
+                        />
                     </div>
                     <Button
                         disabled={isLoading || !form.formState.isValid}

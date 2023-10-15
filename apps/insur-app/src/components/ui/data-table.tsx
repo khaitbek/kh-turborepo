@@ -15,33 +15,38 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { getCarousels, getProducts } from "@/lib/api"
+import { getCarousels, getProducts, getQuestions } from "@/lib/api"
 import { getDictionary } from "@/lib/dictionary"
 import { QueryFunction, useQuery } from "@tanstack/react-query"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    lang: Awaited<ReturnType<typeof getDictionary>>,
-    queryKey: string;
+    lang: Awaited<ReturnType<typeof getDictionary>>
+    queryKey: string
 }
 
 export function DataTable<TData, TValue>({
     columns,
     lang,
-    queryKey
+    queryKey,
 }: DataTableProps<TData, TValue>) {
     const { form, navigation, table: tableLang } = lang
     const { data } = useQuery({
         queryKey: [queryKey],
-        queryFn: async () => await queryKey === "products" ? getProducts() : getCarousels(),
-    });
+        queryFn: async () =>
+            (await queryKey) === "products"
+                ? getProducts()
+                : queryKey === "questions"
+                ? getQuestions()
+                : getCarousels(),
+    })
     const table = useReactTable({
         data: (data! as TData[]) || [],
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
     return (
-        <div className="rounded-md border">
+        <div className="rounded-md border max-h-[1000px] overflow-auto">
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (

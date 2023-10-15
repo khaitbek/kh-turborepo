@@ -1,22 +1,17 @@
+import { PageTitle } from "ui"
 import { GradientHeading } from "./GradientHeading"
+import { Section } from "./Section"
 
-/**
- * v0 by Vercel Labs.
- * @see https://v0.dev/t/0W13RkH
- */
 export default function Skills() {
     return (
-        <section id="skills" className="w-full py-[50px]">
+        <Section id="skills" className="w-full py-[50px]">
             <div className="container px-4 md:px-6">
                 <div className="grid gap-6 items-center">
                     <div className="flex flex-col justify-center space-y-8 text-center">
                         <div className="space-y-2">
-                            <GradientHeading
-                                className="mb-6 uppercase tracking-widest bg-gradient-to-r from-white to-gray-500"
-                                as="h2"
-                            >
+                            <PageTitle className="uppercase from-white to-gray-500 tracking-widest text-[36px] md:text-[48px] lg:text-[60px]">
                                 Skills
-                            </GradientHeading>
+                            </PageTitle>
                         </div>
                         <div className="w-full max-w-full space-y-4 mx-auto">
                             <ul
@@ -148,6 +143,6 @@ export default function Skills() {
                     </div>
                 </div>
             </div>
-        </section>
+        </Section>
     )
 }

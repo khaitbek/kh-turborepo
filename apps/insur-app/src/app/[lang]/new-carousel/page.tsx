@@ -5,13 +5,10 @@ import { PageTitle, buttonVariants } from "ui"
 import { cn } from "ui/lib/utils"
 import { Locale } from "../../../../i18n.config"
 import { getDictionary } from "@/lib/dictionary"
+import { PageProps } from "@/types"
 
-export default async function Home({
-    params: { lang },
-}: {
-    params: { lang: Locale }
-  }) {
-  const { navigation} = await getDictionary(lang);
+export default async function Home({ params: { lang } }: PageProps) {
+    const langInfo = await getDictionary(lang)
     return (
         <section className="py-12" id="home">
             <Container>
@@ -19,12 +16,12 @@ export default async function Home({
                     href="/"
                     className={cn(buttonVariants({ variant: "destructive" }))}
                 >
-                    {navigation.back}
+                    {langInfo.navigation.back}
                 </Link>
                 <PageTitle className="mb-12 text-center">
-                    {navigation.new}
+                    {langInfo.navigation.new}
                 </PageTitle>
-                <NewCarouselForm />
+                <NewCarouselForm lang={langInfo} />
             </Container>
         </section>
     )

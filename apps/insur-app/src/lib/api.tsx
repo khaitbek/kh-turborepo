@@ -4,6 +4,7 @@ import { Product } from "@/data/products"
 import { AdminModel, Carousel } from "@/schema"
 import { z } from "zod"
 import { env } from "process"
+import { Question } from "@/schema/question"
 export const axiosClient = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
 })
@@ -62,7 +63,6 @@ export async function getCarousels(skip = 0, take = 10): Promise<Carousel[]> {
             take,
         },
     })
-    console.log(carousels.data)
     return await carousels.data.data
 }
 
@@ -72,7 +72,7 @@ export async function getCarouselBy(id: string) {
     return carousels
 }
 
-export async function editCarousel(data: Carousel, id: string | undefined) {
+export async function editCarousel(data: FormData, id: string | undefined) {
     return await axiosClient.put(`/carousel/${id}`, data)
 }
 
@@ -80,4 +80,24 @@ export async function deleteCarousel(id: string) {
     return await (
         await axiosClient.delete(`/carousel/${id}`)
     ).data
+}
+
+export async function getQuestions(): Promise<Question[]> {
+    return (await axiosClient.get("/faq/question")).data
+}
+
+export async function addQuestion(data: Question) {
+    return (await axiosClient.post("/faq/question", data)).data
+}
+
+export async function editQuestion(data: Question, id: string) {
+    return await axiosClient.put("/faq/" + id, data)
+}
+
+export async function deleteQuestion(id: string) {
+    return await axiosClient.delete("/faq/" + id)
+}
+
+export async function getSingleQuestion(id: string): Promise<Question> {
+    return (await axiosClient.get("/faq/" + id)).data
 }

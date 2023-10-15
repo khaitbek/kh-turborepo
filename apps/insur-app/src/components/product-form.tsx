@@ -32,15 +32,14 @@ import { Checkbox } from "./ui/checkbox"
 import { Container } from "./ui/container"
 import { Input } from "./ui/input"
 import { useToast } from "./ui/use-toast"
+import { LangAsProp } from "@/types"
 
-export async function editProduct(data: any, id: string) {
-    return await axiosClient.put(`/product/${id}`, {
-        ...data,
-        id,
-    })
+export async function editProduct(data: FormData, id: string) {
+    data.set("id", id)
+    return await axiosClient.put(`/product/${id}`, data)
 }
 
-export function NewProductForm() {
+export function NewProductForm({ lang }: { lang: LangAsProp }) {
     const formRef = useRef<HTMLFormElement>(null)
     const imgOneRef = useRef<HTMLInputElement>(null)
     const imgTwoRef = useRef<HTMLInputElement>(null)
@@ -81,6 +80,7 @@ export function NewProductForm() {
             form.setValue("nameUz", "")
             form.setValue("nameRu", "")
             form.setValue("category", "")
+            form.setValue("type", "")
             form.setValue("onSale", false)
             queryClient.invalidateQueries({ queryKey: ["products"] })
         },
@@ -115,16 +115,14 @@ export function NewProductForm() {
                             name="nameUz"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>O'zbekcha nomi</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.nameUz.label}
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="nameUz"
-                                            {...field}
-                                        />
+                                        <Input {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulotning o'zbekcha nomini lotin
-                                        harflarida yozing
+                                        {lang.form.product.nameRu.label}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -135,15 +133,14 @@ export function NewProductForm() {
                             name="nameRu"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Ruscha nomi</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.nameRu.label}
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="nameRu"
-                                            {...field}
-                                        />
+                                        <Input {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulotning ruscha nomini yozing
+                                        {lang.form.product.nameRu.desc}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -156,16 +153,14 @@ export function NewProductForm() {
                             name="descriptionUz"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Ma'lumot</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.descriptionUz.label}
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="description"
-                                            {...field}
-                                        />
+                                        <Input {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulot haqida o'zbek tilida ma'lumot
-                                        yozing
+                                        {lang.form.product.descriptionUz.desc}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -176,16 +171,14 @@ export function NewProductForm() {
                             name="descriptionRu"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Ma'lumot</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.descriptionRu.label}
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="description"
-                                            {...field}
-                                        />
+                                        <Input {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulot haqida rus tilida ma'lumot
-                                        yozing
+                                        {lang.form.product.descriptionRu.desc}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -204,7 +197,9 @@ export function NewProductForm() {
                                     />
                                 </FormControl>
                                 <div className="space-y-1 leading-none">
-                                    <FormLabel>Aktiv holati</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.onSale.label}
+                                    </FormLabel>
                                 </div>
                             </FormItem>
                         )}
@@ -214,28 +209,44 @@ export function NewProductForm() {
                         name="category"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Kategoriya</FormLabel>
+                                <FormLabel>
+                                    {lang.form.product.category.label}
+                                </FormLabel>
                                 <Select
                                     onValueChange={field.onChange}
                                     defaultValue={field.value}
                                 >
                                     <FormControl>
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Kategoriyani tanlang" />
+                                            <SelectValue
+                                                placeholder={
+                                                    lang.form.product.category
+                                                        .desc
+                                                }
+                                            />
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                        <SelectItem defaultChecked value="">
-                                            Umumiy
+                                        <SelectItem defaultChecked value="ALL">
+                                            {lang.form.product.categories.all}
                                         </SelectItem>
                                         <SelectItem value="MALE">
-                                            Erkaklar
+                                            {lang.form.product.categories.male}
                                         </SelectItem>
                                         <SelectItem value="FEMALE">
-                                            Ayollar
+                                            {
+                                                lang.form.product.categories
+                                                    .female
+                                            }
                                         </SelectItem>
                                         <SelectItem value="KIDS">
-                                            Bolalar
+                                            {lang.form.product.categories.kids}
+                                        </SelectItem>
+                                        <SelectItem value="TIGHTS">
+                                            {
+                                                lang.form.product.categories
+                                                    .tights
+                                            }
                                         </SelectItem>
                                     </SelectContent>
                                 </Select>
@@ -248,18 +259,19 @@ export function NewProductForm() {
                             name="imgOne"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Birinchi rasm</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.imgOne.label}
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             className="upload-input"
                                             type="file"
-                                            placeholder="imgOne"
                                             {...field}
                                             ref={imgOneRef}
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulotning birinchi rasmi
+                                        {lang.form.product.imgOne.desc}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -270,18 +282,20 @@ export function NewProductForm() {
                             name="imgTwo"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Ikkinchi rasm</FormLabel>
+                                    <FormLabel>
+                                        {" "}
+                                        {lang.form.product.imgTwo.label}
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             className="upload-input"
                                             type="file"
-                                            placeholder="imgTwo"
                                             {...field}
                                             ref={imgTwoRef}
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulotning ikkinchi rasmi
+                                        {lang.form.product.imgTwo.desc}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -292,18 +306,20 @@ export function NewProductForm() {
                             name="imgThree"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Uchinchi rasm</FormLabel>
+                                    <FormLabel>
+                                        {" "}
+                                        {lang.form.product.imgThree.label}
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             className="upload-input"
                                             type="file"
-                                            placeholder="imgThree"
                                             {...field}
                                             ref={imgThreeRef}
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulotning uchinchi rasmi
+                                        {lang.form.product.imgThree.desc}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -314,29 +330,39 @@ export function NewProductForm() {
                         disabled={isLoading || !form.formState.isValid}
                         type="submit"
                     >
-                        Submit
+                        {lang.navigation.new}
                     </Button>
                 </form>
             </Form>
         </Container>
     )
 }
-export function EditProductForm({ data }: { data: Product | undefined }) {
+export function EditProductForm({
+    data,
+    lang,
+}: {
+    data: Product | undefined
+    lang: LangAsProp
+}) {
+    const formRef = useRef<HTMLFormElement>(null)
+    const imgOneRef = useRef<HTMLInputElement>(null)
+    const imgTwoRef = useRef<HTMLInputElement>(null)
+    const imgThreeRef = useRef<HTMLInputElement>(null)
     const queryClient = useQueryClient()
     const { toast } = useToast()
     const { mutate, isLoading } = useMutation({
         mutationKey: ["products", "edit", data?.id],
-        mutationFn: async (values: z.infer<typeof ProductEditModel>) =>
+        mutationFn: async (values: FormData) =>
             await editProduct(values, data!.id),
         onSuccess(data, variables, context) {
             toast({
-                title: "Muvaffaqqiyatli amalga oshirildi!",
+                title: lang.success,
             })
             queryClient.invalidateQueries({ queryKey: ["products"] })
         },
         onError(error, variables, context) {
             toast({
-                title: "Xatolik yuz berdi",
+                title: lang.form.error.default,
             })
         },
     })
@@ -345,6 +371,9 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
         resolver: zodResolver(ProductModel),
         defaultValues: {
             ...data,
+            imgOne: "",
+            imgTwo: "",
+            imgThree: "",
         },
     })
 
@@ -352,9 +381,16 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
     function onSubmit(values: z.infer<typeof ProductModel>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        mutate(values)
+        const formValues: z.infer<typeof ProductModel> = {
+            ...values,
+            imgOne: imgOneRef.current?.files![0] as unknown as string,
+            imgTwo: imgTwoRef.current?.files![0] as unknown as string,
+            imgThree: imgThreeRef.current?.files![0] as unknown as string,
+        }
+        console.log("Form values ==>>", formValues)
+        const formData = objToFormData(formValues)
+        mutate(formData)
     }
-    console.log(form.formState.errors)
     return (
         <Container>
             <Form {...form}>
@@ -369,16 +405,14 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                             name="nameUz"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>O'zbekcha nomi</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.nameUz.label}
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="nameUz"
-                                            {...field}
-                                        />
+                                        <Input {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulotning o'zbekcha nomini lotin
-                                        harflarida yozing
+                                        {lang.form.product.nameRu.label}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -389,15 +423,14 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                             name="nameRu"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Ruscha nomi</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.nameRu.label}
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="nameRu"
-                                            {...field}
-                                        />
+                                        <Input {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulotning ruscha nomini yozing
+                                        {lang.form.product.nameRu.desc}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -410,16 +443,14 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                             name="descriptionUz"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Ma'lumot</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.descriptionUz.label}
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="description"
-                                            {...field}
-                                        />
+                                        <Input {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulot haqida o'zbek tilida ma'lumot
-                                        yozing
+                                        {lang.form.product.descriptionUz.desc}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -430,16 +461,14 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                             name="descriptionRu"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Ma'lumot</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.descriptionRu.label}
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="description"
-                                            {...field}
-                                        />
+                                        <Input {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Mahsulot haqida rus tilida ma'lumot
-                                        yozing
+                                        {lang.form.product.descriptionRu.desc}
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -458,7 +487,9 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                                     />
                                 </FormControl>
                                 <div className="space-y-1 leading-none">
-                                    <FormLabel>Aktiv holati</FormLabel>
+                                    <FormLabel>
+                                        {lang.form.product.onSale.label}
+                                    </FormLabel>
                                 </div>
                             </FormItem>
                         )}
@@ -468,35 +499,51 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                         name="category"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Kategoriya</FormLabel>
+                                <FormLabel>
+                                    {lang.form.product.category.label}
+                                </FormLabel>
                                 <Select
                                     onValueChange={field.onChange}
                                     defaultValue={field.value}
                                 >
                                     <FormControl>
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Kategoriyani tanlang" />
+                                            <SelectValue
+                                                placeholder={
+                                                    lang.form.product.category
+                                                        .desc
+                                                }
+                                            />
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                        <SelectItem defaultChecked value="">
-                                            Umumiy
+                                        <SelectItem defaultChecked value="ALL">
+                                            {lang.form.product.categories.all}
                                         </SelectItem>
                                         <SelectItem value="MALE">
-                                            Erkaklar
+                                            {lang.form.product.categories.male}
                                         </SelectItem>
                                         <SelectItem value="FEMALE">
-                                            Ayollar
+                                            {
+                                                lang.form.product.categories
+                                                    .female
+                                            }
                                         </SelectItem>
                                         <SelectItem value="KIDS">
-                                            Bolalar
+                                            {lang.form.product.categories.kids}
+                                        </SelectItem>
+                                        <SelectItem value="TIGHTS">
+                                            {
+                                                lang.form.product.categories
+                                                    .tights
+                                            }
                                         </SelectItem>
                                     </SelectContent>
                                 </Select>
                             </FormItem>
                         )}
                     />
-                    {/* <FormField
+                    <FormField
                         control={form.control}
                         name="imgOne"
                         render={({ field }) => (
@@ -506,8 +553,8 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                                     <Input
                                         className="upload-input"
                                         type="file"
-                                        placeholder="imgOne"
                                         {...field}
+                                        ref={imgOneRef}
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -516,8 +563,8 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                                 <FormMessage />
                             </FormItem>
                         )}
-                    /> */}
-                    {/* <FormField
+                    />
+                    <FormField
                         control={form.control}
                         name="imgTwo"
                         render={({ field }) => (
@@ -527,8 +574,8 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                                     <Input
                                         className="upload-input"
                                         type="file"
-                                        placeholder="imgTwo"
                                         {...field}
+                                        ref={imgTwoRef}
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -548,8 +595,8 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                                     <Input
                                         className="upload-input"
                                         type="file"
-                                        placeholder="imgThree"
                                         {...field}
+                                        ref={imgThreeRef}
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -558,9 +605,9 @@ export function EditProductForm({ data }: { data: Product | undefined }) {
                                 <FormMessage />
                             </FormItem>
                         )}
-                    /> */}
+                    />
                     <Button disabled={isLoading} type="submit">
-                        Submit
+                        {lang.navigation.edit}
                     </Button>
                 </form>
             </Form>
