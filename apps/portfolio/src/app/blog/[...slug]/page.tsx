@@ -54,7 +54,7 @@ export default async function PostPage({ params }: PageProps) {
 	}
 
 	return (
-		<article className="py-6 prose mx-auto dark:prose-invert">
+		<article className="py-5 prose mx-auto dark:prose-invert">
 			<div className="container mx-auto">
 				<PageTitle className="mb-4">{post.title}</PageTitle>
 				{post.description && (
