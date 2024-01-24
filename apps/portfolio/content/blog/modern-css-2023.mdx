@@ -1,0 +1,100 @@
+---
+title: Zamonaviy CSS ning yangi imkoniyatlari
+description: CSS so'nggi yillarda eng ko'p o'sib borayotgan texnologiyalardan biri. CSS taqdim etayotgan yangiliklar sizni hayron qoldirish aniq
+categories: CSS
+---
+
+[](https://medium.com/@khaitbekdev?source=post_page-----595516a13236--------------------------------)
+
+[Hayitbek Yusupov](https://medium.com/@khaitbekdev?source=post_page-----595516a13236--------------------------------)
+
+2 min read
+
+Mar 8, 2023
+
+CSS bugungi kungacha aksariyat dasturchilar uchun qiyin bo’lib kelgan. Bugungi kunda CSS ni zo’r biladiganlar juda-juda kam. Lekin vaqt o’tgani sari, CSS ham zamonaviylashib bormoqda va shu bilan birgalikda o’rganish va ishlatish uchun osonlashib ham bormoqda. Bugun CSS ning yangi imkoniyatlaridan ba’zilarini ko’rib chiqamiz.
+
+# **Inset va aspect-ratio**
+
+```
+.absolute{
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+}
+
+.rounded{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+}
+```
+
+Xo’sh… Menimcha bu katta ehtimol bilan siz doim odatiy ravishda yozib yuradigan kod, to’g’rimi? Albatta, bu kodning hech qanday yomon joyi yo’q, lekin CSS dagi `inset` va `aspect-ratio` xususiyatlari orqali biz ushbu kodni soddaroq ko’rinishga keltirishimiz mumkin.
+
+```
+.absolute{
+  position:absolute;
+  inset:0; /* top, right, bottom, left -> 0 */
+}
+
+.rounded{
+  width:100px;
+  aspect-ratio:1; /* width, height ikkalasi 100px, agar widthni 150px qilsam height ham 150px bo'ladi */
+  border-radius:50%;
+}
+```
+
+# **min(), max(), clamp() va hokazolar**
+
+Odatda frontendchilar CSS ni o’rganayotganlarida eng birinchilardan bo’lib **container** stillarini tuzishni o’rganadilar va deyarli 99% holatda ularning yozadigan stillari quyidagicha bo’ladi:
+
+```
+.container{
+  width:100%;
+  max-width:1240px;
+  margin:0 auto;
+  padding: 0 20px;
+}
+```
+
+Yana qaytaraman, bu kodlarni hech qanday yomon tomoni yo’q, shunchaki ularni yaxshilash mumkin. Keling endi shu kodni soddalashtiramiz:
+
+```
+.container{
+  width:min(100%, 1240px); /* viewport width ga qarab eng kichigini tanlaydi*/
+  margin-inline:auto; /* margin-left va margin-right uchun qisqartma */
+  padding-inline:20px; /* padding-left va padding-right uchun qisqartma */
+}
+```
+
+Kodni tahlil qiladigan bo’lsak, **min()** va **max()** funksiyalari o’ziga ikkita qiymat qabul qiladi. **min() viewport width** ga ko’ra ikki qiymatdan eng kichigini tanlasa, **max()** eng kattasini tanlaydi. **margin-inline, padding-inline** lar esa **logical property** deyiladi. Ularga o’xshash propertylar CSS da yetarlicha:
+
+- **margin-inline-start (margin-left)**, **margin-inline-end (margin-right)** va xuddi shu holat **padding** uchun ham mavjud.
+- **margin-block (margin-top** va **margin-bottom), margin-block-start (margin-top), margin-block-end (margin-bottom)** va xuddi shu holat **padding** uchun ham mavjud.
+
+# Responsive tipografiya
+
+CSS dagi yangi **clamp()** funksiyasi orqali responsive typography birmuncha yengillashdi. Biz bu funksiyaga 3 ta qiymat berishimiz kerak:
+
+- eng minimum qiymat
+- boshlang’ich qiymat
+- eng maximum qiymat
+
+```
+.page-title{
+  font-size:clamp(1.5rem, 3rem, 6rem);
+}
+```
+
+Kodni tahlil qiladigan bo’lsak, bizda font-size:
+
+- eng kamida **1.5rem** bo’ladi, ya’ni eng minimum qiymat **1.5rem.**
+- boshlang’ich qiymati esa **3rem,** agar boshlang’ich qiymat katta bo’lsa, eng minimum qiymatgacha avtomatik kamayadi, lekin eng minimum qiymatdan pastga o’tmaydi.
+- eng ko’pi bilan **6rem** bo’ladi, ya’ni **6rem** dan katta bo’lib ketmaydi.
+
+**clamp()** ko’p holatlarda ishlatilinishi mumkin, masalan **tipografiya** yoki **margin, paddinglar** uchun.
+
+_Bugungi o’rganganlarimiz haqida batafsil ushbu_ [_havolada_](https://codepen.io/khaitbek/pen/XWPNQxB) _ma’lumot olishingiz mumkin. Bundan tashqari, o’zingiz mustaqil ravishda boshqa manbalardan ham izlanishingiz maqsadga muvofiq._

@@ -1,0 +1,58 @@
+---
+title: Javascriptda sof funksiyalar
+description: Javascript dasturlash tilida sof funksiyalar yozishni o'rganamiz
+categories: Javascript
+---
+
+# Javascriptda sof funksiyalar
+
+[](https://medium.com/@khaitbekdev?source=post_page-----f9818bd2220e--------------------------------)
+
+[Hayitbek Yusupov](https://medium.com/@khaitbekdev?source=post_page-----f9818bd2220e--------------------------------)
+
+2 min read
+
+Nov 3, 2022
+
+Sof funksiya— bir xil argumentlar berilganda doim bir xil natija qaytarib beruvchi funksiya hisoblanadi. Ya’ni funksiyaning argumentiga biz bir xil qiymat bersak, bizga ham doim bir xil natijani beradi. Sof funksiyalar faqatgina o’ziga argument sifatida berilgan qiymatlar bilangina ishlaydi. Funksiya o’zidan tashqaridagi hech qaysi narsaga ta’sir o’tkazmaydi.
+
+```
+const sonlar = [1,2,3,4,5]console.log(sonlar) // [1,2,3,4,5]function arraydan_chop(array){
+    return array.pop()
+}arraydan_chop(sonlar)console.log(sonlar) // [1,2,3,4]
+```
+
+Yuqoridagi kodga qaraymiz. Bizda `sonlar` nomli array bor va `arraydan_chop` nomli funksiya bor va bu funksiya shunchaki o’ziga argument sifatida berilgan arrayning oxiridan bitta element o’chiradi. Birinchi `console` ga arrayni chiqarganimizda `[1,2,3,4,5]` chiqqan bo’lsa, funksiyani chaqirib, unga **sonlar** nomli arrayni argument sifatida berganimizdan so’ng `console` ga arrayni chiqarganimizda esa `[1,2,3,4]` chiqdi. Ya’ni funksiya bizning global arrayimizni o’zgartirib yubordi. Sof funksiyalar esa bunday tartibda ishlamaydi. Endi `arraydan_chop` funksiyamizni sof funksiya ko’rinishiga keltiramiz.
+
+```
+const sonlar = [1,2,3,4,5]console.log(sonlar) // [1,2,3,4,5]function arraydan_chop(array){
+    const copyArray = [...array]
+    copyArray.pop()
+    console.log(copyArray) // [1,2,3,4]
+}arraydan_chop(sonlar)console.log(sonlar) // [1,2,3,4,5]
+```
+
+Bu gal esa bizning arrayimiz umuman o’zgarmadi. Funksiyani ishlatmasdan avval ham qiymati `[1,2,3,4,5]` edi, funksiyani ishlatgandan keyin ham qiymati o’zgarmadi. Bunga sabab esa biz `arraydan_chop` funksiyamizda birinchi bo’lib funksiyaga argument sifatida berilgan arraydan o’zimizga nusxa oldik. Keyin nusxa olingan arrayning oxiridan bitta element o’chirdik va nusxa olingan arrayni `console` ga chiqarganimizda natija `[1,2,3,4]`bo’ldi. Ya’ni, bizning funksiyamiz o’zidan tashqaridagi hech qanday elementni o’zgartirmadi. Endi sof funksiyalar har doim bir xil argumentlar uchun bir xil qiymat qaytarishini misolda ko’ramiz.
+
+```
+const sonlar = [1,2,3,4,5]function arraydan_chop(array){
+    const copyArray = [...array]
+    copyArray.pop()
+    console.log(copyArray)
+}
+arraydan_chop(sonlar) // [1,2,3,4]
+arraydan_chop(sonlar) // [1,2,3,4]
+arraydan_chop(sonlar) // [1,2,3,4]
+arraydan_chop(sonlar) // [1,2,3,4]
+arraydan_chop(sonlar) // [1,2,3,4]
+```
+
+Endi bu galgi kodimizda funksiyani 5 marta ishlattik, lekin bir xil qiymat `console` ga chiqaverdi. Bunga sabab esa bizning funksiyamiz hecn qanday global o’zgaruvchini o’zgartirmadi, aksincha har gal o’ziga argument sifatida berilgan arraydan nusxa oldi va **nusxa olingan arrayni** o’zgartirdi. Bu esa sof funksiyaning yana bir afzalliklaridan biri hisoblanadi.
+
+# Sof funksiyalarning afzalligi
+
+Sof funksiyalarning afzalligi shundaki, sof funksiyalar o’zidan tashqaridagi narsalarni umuman o’zgartirmaydi va har doim bir xil argument berilsa bir xil natija qaytaradi. Bu afzalliklar bizning kodimizni tartibini saqlashga yordam beradi. Kodimizda hech narsa birdaniga o’zgarib ketib qolmaydi, balki faqatgina funksiyani ichida o’zgaradi.
+
+# Sof funksiyalarning salbiy tomonlari
+
+Agar siz yozayotgan funksiya ma’lumotlar bazasidan qandaydir ma’lumotni o’chirib yuborishi, o’zgartirib yuborishi yoki shunga o’xshash ishlarni bajarishi shart bo’lsa, bu holatlarda sof funksiya ishlatilinmaydi. Chunki sof funksiya o’zidan tashqaridagi hech narsaga ta’sir o’tkazmaydi. Faqatgina o’ziga berilgan argumentlar bilan ishlaydi.

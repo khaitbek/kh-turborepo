@@ -44,9 +44,11 @@ export function Articles() {
                                     {doc.categories
                                         ?.split(",")
                                         .map((category) => (
-                                            <Button variant="outline">
-                                                {category}
-                                            </Button>
+                                            <li key={category}>
+                                                <Button variant="outline">
+                                                    {category}
+                                                </Button>
+                                            </li>
                                         ))}
                                 </ul>
                             </CardFooter>
