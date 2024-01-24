@@ -1,0 +1,85 @@
+{
+  "chooseLang":"Tilni tanlang",
+  "loading": "Loading...",
+  "success": "Muvaffaqqiyatli amalga oshirildi!",
+  "navigation": {
+    "home": "Isnur Admin Sahifasi",
+    "edit": "Tahrirlash",
+    "new": "Yangi qo'shish",
+    "login": "Tizimga kirish",
+    "back": "Ortga"
+  },
+  "page": {
+    "home": {},
+    "about": {}
+  },
+  "table": {
+    "tabs": {
+      "carousel": "Slayder",
+      "products": "Mahsulotlar"
+    },
+    "columns": {
+      "name": "Nomi",
+      "category": "Kategoriya",
+      "status": "Holati",
+      "actions": "Amallar"
+    }
+  },
+  "form": {
+    "delete": "O'chirish",
+    "edit": "Tahrirlash",
+    "error": {
+      "default": "Xatolik yuz berdi!",
+      "login": "Parol yoki username xato!"
+    },
+    "product": {
+      "nameUz": {
+        "label": "Mahsulot nomini yozing",
+        "desc": "Mahsulot nomini o'zbek tilida yozing"
+      },
+      "nameRu": {
+        "label": "Mahsulotning ruscha nomini yozing",
+        "desc": "Mahsulotning nomini ruscha harflarda yozing"
+      },
+      "imgOne": {
+        "label": "1-rasm",
+        "desc": "Mahsulotning 1-rasmini tanlang"
+      },
+      "imgTwo": {
+        "label": "2-rasm",
+        "desc": "Mahsulotning 2-rasmini tanlang"
+      },
+      "imgThree": {
+        "label": "3-rasm",
+        "desc": "Mahsulotning 3-rasmini tanlang"
+      },
+      "descriptionUz": {
+        "label": "Ma'lumot",
+        "desc": "Mahsulot haqida ma'lumotni o'zbek tilida yozing!"
+      },
+      "descriptionRu": {
+        "label": "Ma'lumot",
+        "desc": "Mahsulot haqida ma'lumotni rus tilida yozing!"
+      },
+      "category": {
+        "label": "Kategoriya",
+        "desc": "Mahsulot kategoriyasini tanlang"
+      },
+      "onSale": {
+        "label": "Aktiv holati",
+        "desc": "Mahsulotning sotuvga chiqishi kerak yoki kerak emasligini tanlang"
+      },
+      "categories": {
+        "male": "Erkaklar",
+        "female": "Ayollar",
+        "kids": "Bolalar",
+        "tights": "Kalgotkilar",
+        "all": "Umumiy"
+      }
+    },
+    "login": {
+      "username": "Login",
+      "password": "Parol"
+    }
+  }
+}

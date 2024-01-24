@@ -1,0 +1,160 @@
+---
+title: Javascriptda Arraylar
+description: Arraylar har doim ham tushunishga oson emas, ayniqsa siz Javascript dasturchisi bo'lsangiz. Endi javascriptda arraylar qanday ishlashini anglab yetish vaqti keldi
+categories: Javascript
+---
+
+[](https://medium.com/@khaitbekdev?source=post_page-----2ccb74810244--------------------------------)
+
+[Hayitbek Yusupov](https://medium.com/@khaitbekdev?source=post_page-----2ccb74810244--------------------------------)
+
+5 min read
+
+Oct 14, 2022
+
+_Arraylar dasturlash olamida ko’pchilik birinchi ko’rishda qiyin deb o’ylaydigan, ammo aslida unchalik ham qiyin bo’lmagan mavzulardan biri hisoblanadi. Bugun biz arraylarni osonroq yo’l bilan o’rganishga harakat qilamiz._
+
+Siz katta ehtimol bilan o’zgaruvchilar bilan tanishsiz. O’zgaruvchilar o’zida qandaydir qiymatni saqlaydi. Arraylar ham o’zgaruvchi, faqat ular o’zida bir nechta qiymatlar (o’zgaruvchilar) saqlash mumkin. Arrayni bir quti desak, uning ichida bir qancha narsalar bo’lishi mumkin. Masalan hammamiz bozorda tuxum olganmiz, to’g’rimi? Lekin hech tuxumlar joylangan idishga yaxshilab e’tibor berganmisiz? Mana shu holat arraylarga yaxshi misol bo’la oladi. Qandaydir quti yoki konteyner, uning ichida esa bir qancha narsalar bor. Pastdagi rasmda biz 12 ta tuxum joylashgan qutini ko’rishimiz mumkin. Arraylar ham o’zida qiymatlarni deyarli shunday saqlaydi.
+
+![](https://miro.medium.com/v2/resize:fit:504/0*DuFgfEGe019v8ViX.jpeg)
+
+Arraylar o’zida turli xil qiymatlar— son, matn va hokazolarni saqlashi mumkin. Tepadagi rasmda ko’rib turganingizdek arraydagi elementlarga indeks orqali murojaat qilinadi. Ya’ni arraydagi elementlarni arraydagi joylashuvi bo’ladi. Arraydagi birinchi elementning indeksi doim 0 bo’ladi. Bu deyarli barcha dasturlash tillarida bir xil. Biz arraydagi eng birinchi elementni ekranga chiqarishimiz uchun arrayning 0-elementiga murojaat qilishimiz kerak.
+
+```
+let array = [‘🥚’, ‘📱’ ,’🍈’ ,’🍉’ ,’🍎’ ,’🍋’]
+console.log(array[0]) // 🥚
+let array = ['🥚', '📱' ,'🍈' ,'🍉' ,'🍎' ,'🍋']
+console.log(array[4]) // 🍎
+```
+
+Ko’rib turganingizdek arrayning 4-indeksdagi elementini ekranga chiqarganimizda arraydagi 5-element ekranga chiqdi. Bunga sabab esa arrayda tartib 0 raqamidan boshlanadi. Elementlarning joylashuvi indeks bo’yicha, indekslar esa 0 raqamidan boshlanadi.
+
+![](https://miro.medium.com/v2/resize:fit:875/0*HNVmQQNpLNUJDmNS.jpg)
+
+Tepadagi rasmga bir e’tibor beraylik. Value — qiymat, index — indeks, lower bound — arrayning boshi, upper bound — arrayning oxiri, array length — arraydagi elementlar soni esa 9 ta.
+
+# Arraydagi ma’lumotlar xotirada qanday saqlanadi?
+
+Biz qandaydir arrayni e’lon qilganimizda, kompyuter o’sha arrayda nechta element borligiga qarab, array uchun xotiradan joy ajratadi, dangalroq tushuntirganda xotiradan kataklar ajratadi. Masalan bizda `raqamlar = [1,2,3,4,5]` array bor. Keling bu array xotirada qanday saqlanishini rasm misolida ko’rishga harakat qilamiz.
+
+![](https://miro.medium.com/v2/resize:fit:300/0*24a8AX0Vh7afJFKs)
+
+Ko’rib turganingizdek, arrayda 5 ta element bor, indekslar, qiymatlar bor, ammo bizga eng qiziq joyi **Base Address** degan joyi. U yerda **1000, 1002, 1004, 1006, 1008** sonlari bor. U sonlar nima? U sonlar o’sha arraydagi qiymatning xotirada saqlangan manzili. Ya’ni arraydagi birinchi qiymat **10** soni uning xotirada saqlangan manzili esa **1000**. O’zi aslida xotiradagi manzillar `0x7ffe5367e044` shu ko’rinishda bo’ladi, lekin biz uchun oddiy sonlar bilan tushunish osonroq. Xulosa qilib aytish mumkinki, biz kompyuterga array ochmoqchiligimizni aytamiz, keyin esa u arrayni ichiga qiymatlar beramiz. Kompyuter esa nechta qiymat borligiga qarab xotiradan array uchun joy ajratib beradi.
+
+# Ichma-ich array
+
+![](https://miro.medium.com/v2/resize:fit:875/0*QiZItmbEOiDAT1Uf.png)
+
+Ichma-ich arraylarni nima ekanligini yaxshi tushunish uchun biz shaxmat doskasiga qaraymiz. Shaxmat doskasida 8 ta qator, 8ta ustun, umumiy 64 ta katak bor. Bu degani har bir qatorda 8 tadan ustun bor degani. Qator nima ustun nima? Qator deganda biz 1, 2, 3, 4, 5, 6, 7, 8, 9 raqamlarini tushunsak bo’ladi, ustun deganda esa o’sha raqamlarni o’ng tarafidagi 8 ta kataklarni tushunsak bo’ladi. Bu nima degani o’zi? Keling shu shaxmat doskasini array deb tasavvur qilaylik.
+
+```
+let shaxmat_doskasi = [
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H']
+]
+```
+
+Ko’rib turganingizdek , bizda `shaxmat_doskasi` nomli array bor, uni ichida esa 8 ta array bor. Bu degani bizda katta quti bor, qutini ichida esa yana 8ta mayda qutilar bor, u mayda qutilarni ichida esa 8 tadan elementlar (kataklar) bor. Endi biz boshida ko’rdikki, arraydagi elementlarga indeks orqali murojaat qila olamiz. Keling endi bu arrayning birinchi elementini ekranga chiqarib ko’ramiz. Bizga aynan birinchi element kelyaptimi yo’qmi bilish uchun arrayni biroz o’zgartiramiz.
+
+```
+let shaxmat_doskasi = [
+    ['A','B','C','D','E','F','G','H','1'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H'],
+    ['A','B','C','D','E','F','G','H']
+]console.log(shaxmat_doskasi[0])
+// [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', '1']
+```
+
+Biz `shaxmat_doskasi` nomli arrayning 0-indeksidagi elementini ekranga chiqarmoqchi bo’lsak, `[ ‘A’, ‘B’, ‘C’, ‘D’, ‘E’, ‘F’, ‘G’, ‘H’, ‘1’]` shu array ekranga chiqdi. Ya’ni `shaxmat_doskasi` dagi birinchi elementning o’zi bitta array. Endi keling `shaxmat_doskasi` nomli arrayimizdagi aynan bitta katakni ekranga chiqarib ko’ramiz. Shaxmat doskasiga e’tibor beramiz. Biz A1 katakni ekranga chiqarishimiz kerak. Buni esa quyidagicha amalga oshirishimiz mumkin.
+
+```
+let shaxmat_doskasi = [
+    ['A1','B1','C1','D1','E1','F1','G1','H1'],
+    ['A2','B2','C2','D2','E2','F2','G2','H2'],
+    ['A3','B3','C3','D3','E3','F3','G3','H3'],
+    ['A4','B4','C4','D4','E4','F4','G4','H4'],
+    ['A5','B5','C5','D5','E5','F5','G5','H5'],
+    ['A6','B6','C6','D6','E6','F6','G6','H6'],
+    ['A7','B7','C7','D7','E7','F7','G7','H7'],
+    ['A8','B8','C8','D8','E8','F8','G8','H8']
+]
+console.log(shaxmat_doskasi[0][0])
+// A1
+```
+
+Bizga bu koddan yangilik bo’lgan joyi `shaxmat_doskasi[0][0]` shu joyi. Birinchi 0 `shaxmat_doskasi` dagi birinchi element. Birinchi elementni o’zini ichida 8 ta element bor, demak ikkinchi 0 o’sha birinchi elementni ichidagi birinchi element. Yodimizdan ko’tarmaylik, indeks 0 dan boshlanadi. 0-element degani bu arraydagi birinchi element degani.
+
+# Arraylar bilan bajariladigan amallar
+
+Biz array ni shunchaki e’lon qilishni ko’rdik, xolos. Ammo, arrayga yangi element qo’shish, yoki elementni o’chirib tashlashni ko’rmadik. Keling hozir biz Javascriptda array bilan bajariladigan 4 ta amallarni ko’ramiz: arrayning oxiriga yangi element qo’shish, arrayning boshiga yangi element qo’shish, arrayning oxiridan bitta elementni o’chirish, arrayning boshidan bitta element o’chirish.
+
+**Arrayning oxiriga yangi element qo’shish**
+
+```
+let raqamlar = [1,2,3,4,5]
+raqamlar.push(6)
+console.log(raqamlar)// [ 1, 2, 3, 4, 5, 6 ]
+```
+
+Arrayning `push` nomli metodi (funksiyasi) bor. Bu metod o’ziga element(yoki elementlar) qabul qiladi. Qiladigan ishi esa arrayning oxiriga yangi element (yoki elementlari) qo’shadi. Tepadagi kodda bizda `[1,2,3,4,5]` array bor edi. Biz esa `array.push(6)` orqali arrayga 6 sonini qo’shdik. Keyin esa arrayni ekranga chiqardik va ekranga `[1,2,3,4,5,6]` chiqdi. Ya’ni biz arrayning oxiriga 6 raqamini qo’shdik.
+
+Pastdagi kodda esa biz arrayning oxiriga bir nechta elementlarni qo’shdik. Bir necha elementlar vergul bilan ajratib yoziladi.
+
+```
+let raqamlar = [1,2,3,4,5]
+raqamlar.push(6,"John","Doe")
+console.log(raqamlar) // [ 1, 2, 3, 4, 5, 6, 'John', 'Doe' ]
+```
+
+**Arrayning oxiridan 1ta elementni o’chirib tashlash**
+
+```
+let raqamlar = [1,2,3,4,5]
+raqamlar.pop()
+console.log(raqamlar) // [ 1, 2, 3, 4 ]
+```
+
+Arraydagi navbatdagi metod esa `pop` hisoblanadi. Bu metod o’ziga hech qanday raqam qabul qilmaydi, `push` metodi esa o’ziga son (yoki sonlar) qabul qiladi. `pop` metodi hech narsa qabul qilmaydi va shunchaki arrayning eng oxirgi elementini o’chirib yuboradi.
+
+**Arrayning boshidan bitta elementni o’chirish**
+
+```
+let raqamlar = [1,2,3,4,5]
+raqamlar.shift()
+console.log(raqamlar) // [ 2, 3, 4, 5 ]
+```
+
+Ko’rib turganimizdek, arrayda `shift` nomli metod bor. Bu metod ham hech qanday qiymat qabul qilmaydi, shunchaki arrayning boshidan bitta elementni o’chirib yuboradi.
+
+**Arrayning boshiga element qo’shish**
+
+```
+let raqamlar = [1,2,3,4,5]
+raqamlar.unshift(6)
+console.log(raqamlar) // [ 6, 1, 2, 3, 4, 5 ]
+```
+
+Ko’rib turganimizdek, `unshift` metodi o’ziga element(yoki elementlar) qabul qiladi va qabul qilingan element (yoki elementlar) ni arrayning boshiga qo’shib qo’yadi.
+
+```
+let array = [1,2,3,4,5] // arrayning boshiga bir nechta elementlar qo'shish// bir nechta elementlar qo'shish uchun vergul bilan ajratib yoziladi
+array.unshift(6,"Eshmat","Toshmat")
+console.log(array) // [ 6, 'Eshmat', 'Toshmat', 1, 2, 3, 4, 5 ]
+```
+
+Arrayda boshqa metodlar ham bor, ammo biz ular haqida bugun gaplashmaymiz. Bizning maqsadimiz shunchaki yaxshi tushuncha hosil qilib olish. Arrayning boshqa metodlari haqida alohida maqola chiqarishga harakat qilaman.
+
+# Arraylarning dasturlash olamidagi o’rni
+
+Arraylar dasturlash olamida shunchalik muhimki, har doim ishlatilinib keladi, Junior ham, middle ham, senior ham arraylarni ishlatadi. Arraylarsiz yozilgan kodni tasavvur qilish imkonsiz. Har qanday loyihada eng ko’p ishlatilinadigani bu array. Arraylar bizga juda ko’p qulayliklarni beradi. Shu sababdan ham deyarli barcha dasturlash tillarida arraylar bor, lekin ular har xil nomlanishi mumkin. Masalan Javascriptda arraylar bor, C++ dasturlash tilida esa arraylarni **massiv** deyiladi, Python dasturlash tilida esa **List** deyiladi.

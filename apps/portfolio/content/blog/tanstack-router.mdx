@@ -1,0 +1,129 @@
+---
+title: Tanstack Router
+description: React ilovalarimizda type-safe routing ishlatishni vanihoyat iloji bor
+categories: React,Typescript
+---
+
+**Typescript** hozirgi kunda jadal rivojlanib bormoqda va dasturchilar uchun bir qancha qulayliklar berib kelmoqda. **Typescript** yordamida biz **qat’iy tiplarga asoslangan tizimda** kod yozish orqali o’z ilovalarimizni tezroq, samaraliroq yaratishga erishdik. Typescript **React** bilan juda ajoyib ishlaydi va men ancha muddatdan beri **React** ilovalarimni Typescriptsiz tasavvur qila olmas edim. Lekin React ilovalarimning shunday bir qismi borki, u qismi hech qachon **Typescript** ni qo’llab-quvvatlamagan, har doim kemtik bo’lib qolavergan. U ham bo’lsa, **routing** qismi. Biz hech qachon **Typescript** ilovamizdagi routelarni **boshqarish, nazorat qilish** imkoniga ega bo’lmaganmiz, balkim bu hech kimning hayoliga ham kelmagan. Ammo, [**Tanstack Router**](https://tanstack.com/router/v1) mana shu kemtik joyni to’ldirish uchun eng katta qadamlardan biri bo’ldi.
+
+![](https://miro.medium.com/v2/resize:fit:875/0*NwEly64rEq5KkqBX)
+
+[**Tanstack Router**](https://tanstack.com/router/v1) orqali endi biz ilovamizdagi **route** larni **Typescript** yordamida yozish imkoniga egamiz. Agar hech narsa tushunmagan bo’lsangiz pastdagi rasmga yaxshilab qarang:
+
+![](https://ik.imagekit.io/khaitbek/blog/ts-router-intro/image.png?updatedAt=1702958474379)
+
+Yuqoridagi rasmga yaxshilab e'tibor berishingizni so'rayman. [**Tanstack Router**](https://tanstack.com/router/v1) Biz endi **React** ilovalarimizdagi **routelarni boshqara olamiz**, chunki [**Tanstack Router**](https://tanstack.com/router/v1) bizga buni imkonini beradi. Ilovangizda qaysi sahifalar bor, har bir sahifaga qandaydir **query** yoki **search parametrlar** kerakligini o’zi sizga aytib turadi.
+
+Xo’sh, keling endi [**Tanstack Router**](https://tanstack.com/router/v1) ni qanday ishlatishni ko’ramiz. [**Tanstack Router**](https://tanstack.com/router/v1) hozirda **beta** versiyada va yaqin kunlarda ilk versiyasi chiqarilishi kutilmoqda. [**Tanstack Router**](https://tanstack.com/router/v1) ni **React** ilovamizga quyidagi command orqali o'rnatishimiz mumkin:
+
+`pnpm install @tanstack/react-router@beta`
+
+Men **pnpm** package managerni ishlataman, siz o'zingizga mos holatda **npm**, **yarn** yoki **bun** ishlatishingiz mumkin.
+
+```
+
+import { RootRoute, Route, Router } from "@tanstack/router"
+import { RootLayout } from "./layouts"
+import Home from "./pages/Home"
+import Users from "./pages/Users"
+import Posts from "./pages/Posts"
+
+const indexRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: Home,
+})
+const userRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: "/users",
+  component: Users,
+})
+const postsRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: "/posts",
+  component: Posts,
+})
+
+// create a route tree
+const routeTree = rootRoute.addChildren([indexRoute, userRoute, postsRoute])
+
+// create router
+const router = new Router({ routeTree })
+
+// register your router for type-safety magic
+declare module "@tanstack/router" {
+  interface Register {
+  router: typeof router
+  }
+}
+
+export default router
+```
+
+Demak, biz qilishimiz kerak bo’lgan ish asosan 6 qismga bo’linadi:
+
+- **Root route** yaratish (ilovamizdagi barcha routelarni o’rab turuvchi route)
+- Qolgan **route** lar. Ilovangizdagi sahifalarni birma-bir e’lon qilib ketaverasiz
+- Barcha routelardan **route tree** yaratasiz, ya’ni ularni **bir-biri bilan bog’laysiz** va eng yuqorida e’lon qilingan **root routega** qolgan routelarni qo’shib chiqasiz.
+- Eng muhim qismi esa mana shu:
+
+```
+
+declare module "@tanstack/router" {
+interface Register {
+  router: typeof router;
+  }
+}
+
+// bu kod yozilmasa, Tanstack Routerni foydasi umuman bilinmaydi
+// bu kod bizning routerni Typecript compiler tushunishi, ilovamizdagi sahifalarni tanib olishiga xizmat qiladi
+```
+
+- **App** componentimizni **RouterProvider** bilan o’raymiz
+
+```
+
+import { RouterProvider } from "@tanstack/router"
+import router from "./router"
+
+export default function App() {
+  return (
+    <RouterProvider router={router} />
+  )
+}
+```
+
+- Navbar component yaratish va [**Tanstack Router**](https://tanstack.com/router/v1) ning **Link** componentini ishlatish.
+  [**Tanstack Router**](https://tanstack.com/router/v1) o'zining **built-in Link componentini** bilan keladi. Bu componentni siz ilovaning qaysi qismida **linklar** kerak bo'lsa ishlatishingiz mumkin va aynan shu component orqali siz [**Tanstack Router**](https://tanstack.com/router/v1) ning haqiqiy foydalaridan birini ko'rasiz
+
+```
+import { Link } from "@tanstack/router";
+export function Navbar() {
+  return (
+    <nav>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/posts">Posts</Link>
+        </li>
+        <li>
+          <Link to="/users">Users</Link>
+        </li>
+      </ul>
+    </nav>
+  )
+}
+```
+
+Ko’rib turganingizdek, biz ilovamizdagi barcha route larni Typescript orqali yozishga erishdik. Bu hali ozginagina kirish edi. Tanstack Router juda ko’p ishlarni bajaradi:
+
+<ul>
+	<li> Devtools ✅</li>
+	<li> Type safe search params ✅</li>
+</ul>
+
+## Xayr, React Router DOM?
+
+Men [**Tanstack Router**](https://tanstack.com/router/v1) stabil versiyada chiqishini intizorlik bilan kutilmoqda va stabil versiyasi chiqishi bilan **React Router DOM**ni ortda qoldirishi kutilmoqda. **React Router DOM** yaxshiroq raqobat taklif qilishini kutib qolamiz
