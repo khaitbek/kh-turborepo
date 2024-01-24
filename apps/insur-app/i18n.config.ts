@@ -1,7 +1,6 @@
-import { cookies } from "next/headers"
 export const i18n = {
-    defaultLocale: "uz",
-    locales: ["uz", "ru"],
+	defaultLocale: "uz",
+	locales: ["uz", "ru"],
 } as const
 
 export type Locale = (typeof i18n)["locales"][number]
